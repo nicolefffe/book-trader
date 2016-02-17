@@ -1,0 +1,24 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-image: url('includes/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+main {
+    margin: 2vh 10vw 2vh 10vw;
+    background-color: white;
+    opacity: 0.9;
+}
+
+#welcome {
+    text-align: center;
+    padding-top: 6vh;
+    padding-bottom: 6vh;
+    font-weight: bold;
+}
+
+#submit-title {
+    margin: 2vh 20% 2vh 20%;
+    padding-bottom: 10vh;
+}
