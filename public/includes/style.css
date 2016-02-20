@@ -3,6 +3,7 @@ body {
     background-image: url('includes/bg.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-size: 100%;
 }
 
 main {
@@ -21,4 +22,28 @@ main {
 #submit-title {
     margin: 2vh 20% 2vh 20%;
     padding-bottom: 10vh;
+}
+
+#results {
+    margin: 2vh 20% 2vh 20%;
+    font-size: 1.2em;
+}
+
+.thumb {
+    float: left;
+    padding-right: 4vw;
+    padding-bottom: 2vh;
+}
+
+.empty-thumb {
+    width: 128px;
+    height: 200px;
+    font-size: 10vw;
+    margin-right: 4vw;
+    float: left;
+}
+
+.book-display {
+    overflow: auto;
+    padding-bottom: 4vh;
 }
