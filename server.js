@@ -2,11 +2,11 @@
 
 var express = require('express');
 var path = require('path');
-var routes = require(path.join(__dirname,'app/routes','index.js'));
+var routes = require(path.join(__dirname,'routes.js'));
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname,'/public')));
 
 routes(app);
 

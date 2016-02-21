@@ -1,20 +1,20 @@
 var fs = require("fs");
 var path = require("path");
 var jade = require('jade');
-var FindBook = require(path.join(__dirname,'../controllers','find-book.js'))
+var FindBook = require(path.join(__dirname,'controllers','books.server.js'))
 
 module.exports = function(app,key) {
 
   var findBook = new FindBook();
 
-  app.set('views',path.join(__dirname,'../..','views/'));
+  app.set('views',path.join(__dirname,'views'));
 
   app.locals.basedir = path.join(process.env.PWD,'views');
 
   app.set('view engine', 'jade');
 
   app.get('/', function(request, response) {
-    response.render('pages/index');
+    response.render('index');
   });
 
   app.route('/find/').
