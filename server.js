@@ -12,6 +12,7 @@ if ('development' == env) {
 }
 
 app.use(express.static(path.join(__dirname,'/views')));
+app.use(express.static(path.join(__dirname,'/controllers')));
 
 routes(app);
 

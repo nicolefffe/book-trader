@@ -24,7 +24,33 @@ function findBook() {
         });
 
         results.on('end',function() {
-          callback(reply);
+
+          var books = [];
+          var obj = JSON.parse(reply);
+          console.log(JSON.stringify(obj.items));
+
+          if (obj.items.length > 0) {
+            obj.items.forEach(function(element) {
+
+              var d = element.volumeInfo.description || ' ';
+                if (d.length > 200) {
+                d = d.slice(0,190) + '...';
+              }
+
+              books.push({
+                "id": element.id,
+                "title": element.volumeInfo.title || 'n/a',
+                "author": (element.volumeInfo.authors) ? element.volumeInfo.authors.join(', ') : 'n/a',
+                "publisher": element.volumeInfo.publisher || 'n/a',
+                "date": element.volumeInfo.publishedDate || 'n/a',
+                "description": d,
+                "img": (element.volumeInfo.imageLinks) ? element.volumeInfo.imageLinks.thumbnail : undefined,
+                "lang": element.volumeInfo.language || 'n/a'
+              });
+            });
+          }
+
+          callback({books: books});
         });
     });
 
