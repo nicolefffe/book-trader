@@ -6,7 +6,12 @@ var routes = require(path.join(__dirname,'routes.js'));
 
 var app = express();
 
-app.use(express.static(path.join(__dirname,'/public')));
+var env = process.env.NODE_ENV || 'development';
+if ('development' == env) {
+   app.locals.pretty = true;
+}
+
+app.use(express.static(path.join(__dirname,'/views')));
 
 routes(app);
 
