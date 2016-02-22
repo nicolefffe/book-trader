@@ -38,9 +38,13 @@ main {
 .empty-thumb {
     width: 128px;
     height: 200px;
-    font-size: 10vw;
+    font-size: 11vw;
     margin-right: 4vw;
     float: left;
+}
+
+.bookmark {
+  vertical-align: top;
 }
 
 .book-display {

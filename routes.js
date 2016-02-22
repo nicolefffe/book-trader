@@ -1,7 +1,7 @@
 var fs = require("fs");
 var path = require("path");
 var jade = require('jade');
-var FindBook = require(path.join(__dirname,'controllers','books.server.js'))
+var FindBook = require(path.join(__dirname,'controllers','server-books.js'))
 
 module.exports = function(app,key) {
 

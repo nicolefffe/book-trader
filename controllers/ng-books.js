@@ -1,12 +1,15 @@
-angular.module('ng-books',[])
-.controller('BooksController',['$http', function($http) {
+var app = angular.module('ng-books',[]);
 
-  this.books;
+app.controller('BooksController',['$scope','$http', function($scope, $http) {
 
-  this.getBooks = function getBooks() {
+  $scope.books = false;
+
+  $scope.getBooks = function() {
     var url = 'http://127.0.0.1:8080/find/?q=';
 
-    var query = this.search;
+    $scope.books = false;
+
+    var query = $scope.search;
     query = query.replace(/ /g,'+');
     query = query.match(/[\w\+]/g);
     query = query.join('');
@@ -15,8 +18,8 @@ angular.module('ng-books',[])
     $http.get(url + query)
     .then(function(response) {
 
-      this.books = response.data.books;
-      console.log(this.books);
+      $scope.books = response.data.books;
+      console.log($scope.books);
 
     });
   };

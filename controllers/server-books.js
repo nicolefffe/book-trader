@@ -37,6 +37,13 @@ function findBook() {
                 d = d.slice(0,190) + '...';
               }
 
+              var img = true;
+              var blank = false;
+              if (!element.volumeInfo.imageLinks) {
+                img = false;
+                blank = true;
+              }
+
               books.push({
                 "id": element.id,
                 "title": element.volumeInfo.title || 'n/a',
@@ -44,6 +51,8 @@ function findBook() {
                 "publisher": element.volumeInfo.publisher || 'n/a',
                 "date": element.volumeInfo.publishedDate || 'n/a',
                 "description": d,
+                "isIMG": img,
+                "isBlank": blank,
                 "img": (element.volumeInfo.imageLinks) ? element.volumeInfo.imageLinks.thumbnail : undefined,
                 "lang": element.volumeInfo.language || 'n/a'
               });

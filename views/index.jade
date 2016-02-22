@@ -6,9 +6,21 @@ html(lang='en')
     body
         main
             h1#welcome Welcome to Book Trader
-            div(ng-app='ng-books' ng-controller='BooksController as books')
+            div(ng-app='ng-books' ng-controller='BooksController')
                 div#submit-title.input-group
-                    input#bookinfo.form-control(type='text', placeholder='Enter book title', ng-model='books.search')
-                    span#getbook.input-group-btn(ng-click='books.getBooks()')
+                    input#bookinfo.form-control(type='text', placeholder='Enter book title', ng-model='search')
+                    span#getbook.input-group-btn(ng-click='getBooks()')
                         button.btn.btn-default(type='button') Submit
-                div#results
+                div#results(ng-if='books')
+                    div.book-display(ng-repeat='b in books')
+                        img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
+                        span.empty-thumb(ng-if='b.isBlank')
+                            i.fa.fa-bookmark-o.bookmark
+                        b {{ b.title }}
+                        br
+                        {{ b.author }}
+                        br
+                        {{ b.date }}
+                        br
+                        br
+                        {{ b.description }}
