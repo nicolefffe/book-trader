@@ -19,7 +19,7 @@ main {
     font-weight: bold;
 }
 
-#submit-title {
+.enter-info {
     margin: 2vh 20% 2vh 20%;
     padding-bottom: 10vh;
 }
@@ -32,19 +32,21 @@ main {
 .thumb {
     float: left;
     padding-right: 4vw;
-    padding-bottom: 2vh;
+    padding-bottom: 4vh;
 }
 
 .empty-thumb {
     width: 128px;
     height: 200px;
-    font-size: 11vw;
+    font-size: 12vw;
     margin-right: 4vw;
     float: left;
 }
 
 .bookmark {
   vertical-align: top;
+  margin-top: 0px;
+  padding-top: 0px;
 }
 
 .book-display {

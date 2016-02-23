@@ -3,15 +3,31 @@
 var express = require('express');
 var path = require('path');
 var routes = require(path.join(__dirname,'routes.js'));
+var mongoose = require('mongoose');
+var passport = require('passport');
+var session = require('express-session');
 
 var app = express();
 
-app.locals.pretty = true;
+require('dotenv').load();
+require('./config/passport')(passport);
+
+app.use(session({
+    secret: 'b00ktrade',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+var mongo = process.env.MONGO_URI || undefined;
+mongoose.connect(mongo);
 
 app.use(express.static(path.join(__dirname,'/views')));
-app.use(express.static(path.join(__dirname,'/controllers')));
+app.use(express.static(path.join(__dirname,'/controllers/client')));
 
-routes(app);
+routes(app,passport);
 
 var port = process.env.PORT || 8080;
 

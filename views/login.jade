@@ -1,0 +1,13 @@
+doctype html
+
+html(lang='en')
+    include ./header.jade
+
+    body
+        main
+            h1#welcome Welcome to Book Trader
+            div.enter-info(ng-app='ng-people', ng-controller='PeopleController')
+                div.text-center
+                    a.btn.btn-default(role='button', href='/auth/github') Log in with GitHub&nbsp;&nbsp;
+                        i.fa.fa-github-alt
+
