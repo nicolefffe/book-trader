@@ -84,14 +84,19 @@ module.exports = function(app,passport) {
       var address = req.query.addr || null;
 
       if (address) {
-        address = address.replace(/\+/g,' ');
-        address = address.match(/[\w ]/g);
-        address = address.join('');
+        var obj = {
+          'street': req.query.street || '',
+          'city': req.query.city || '',
+          'state': req.query.state || '',
+          'postal': req.query.postal || '',
+          'country': req.query.country || ''
+        };
 
-        users.setAddress(user,address,function(results) {
+        users.setAddress(user,obj,function(results) {
           res.json(results);
         });
       }
+
       else if (book) {
         users.addBook(user,book,function(results) {
           res.json(results);

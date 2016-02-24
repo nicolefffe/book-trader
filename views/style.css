@@ -20,12 +20,31 @@ main {
 }
 
 .center-info {
-    margin: 2vh 20% 2vh 20%;
+    margin: 2vh 10vw 2vh 10vw;
     padding-bottom: 10vh;
 }
 
 .profile {
+    padding-top: 2vh;
     font-size: 1.6em;
+    display: flex;
+    flex-direction: row;
+}
+
+.sub-profile1 {
+    width: 10vw;
+}
+
+.sub-profile2 {
+    width: 50vw;
+}
+
+.prefix {
+    width: 12vw;
+}
+
+.address {
+    width: 100%;
 }
 
 #results {

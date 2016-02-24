@@ -5,21 +5,40 @@ html(lang='en')
 
     body
         main
-            h1#welcome Welcome to Book Trader
-            div.center-info
-                h4.text-center Profile
-                div.profile(ng-app='ng-people', ng-controller='PeopleController')
-                    b Username:&nbsp;
-                    {{ user }}
-                    br
-                    b Full name:&nbsp;
-                    {{ display }}
-                    br
-                    b Address:&nbsp;
-                    span(ng-show='!editing') {{ address }}
-                    span(ng-show='editing')
-                        input.form-control(type='text', ng-model='address')
-                    br
+            h1#welcome Book Trade
+            div.center-info(ng-app='ng-people', ng-controller='PeopleController')
+                h3.text-center Profile
+                div.profile
+                    span.sub-profile1
+                        b Username:
+                        br
+                        b Full name:
+                        br
+                        b Address:
+                    span.sub-profile2
+                        {{ user }}
+                        br
+                        {{ display }}
+                        br
+                        span(ng-show='!editing') {{ street }}, {{ city }}, {{ state }} {{ postal }}, {{ country }}
+                        span(ng-show='editing')
+                            div.input-group.address
+                                span.input-group-addon.prefix Street
+                                input.form-control(type='text', ng-model='street')
+                            div.input-group.address
+                                span.input-group-addon.prefix City
+                                input.form-control(type='text', ng-model='city')
+                            div.input-group.address
+                                span.input-group-addon.prefix State
+                                input.form-control(type='text', ng-model='state')
+                            div.input-group.address
+                                span.input-group-addon.prefix Postal Code
+                                input.form-control(type='text', ng-model='postal')
+                            div.input-group.address
+                                span.input-group-addon.prefix Country
+                                input.form-control(type='text', ng-model='country')
+                            button.btn.btn-default(type='submit', ng-click='finishEdit()', style='margin-top: 2vh') Submit
+                div.profile
                     button.btn.btn-default(type='submit', ng-show='!editing', ng-click='startEdit()') Edit
-                    button.btn.btn-default(type='submit', ng-show='editing', ng-click='finishEdit()') Submit
+
 

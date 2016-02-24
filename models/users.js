@@ -18,7 +18,13 @@ var User = new Schema(
       username: String,
       publicRepos: Number
     },
-    address: String,
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      postal: String,
+      country: String
+    },
     books: [Book],
     versionKey: false
   }
