@@ -7,7 +7,7 @@ html(lang='en')
         main
             h1#welcome Welcome to Book Trader
             div(ng-app='ng-books' ng-controller='BooksController')
-                div.enter-info.input-group
+                div.center-info.input-group
                     input#bookinfo.form-control(type='text', placeholder='Enter book title', ng-model='search')
                     span#getbook.input-group-btn(ng-click='getBooks()')
                         button.btn.btn-default(type='button') Submit

@@ -4,8 +4,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Book = new Schema(
-  { id: String },
-  { available: Boolean }
+  { id: String,
+    available: Boolean
+  }
 );
 
 var User = new Schema(
@@ -14,10 +15,11 @@ var User = new Schema(
       displayName: String,
       username: String,
       publicRepos: Number
-    }
-  },
-  { address: String },
-  { books: [Book] }
+    },
+    address: String,
+    books: [Book],
+    versionKey: false
+  }
 );
 
 module.exports = mongoose.model('User', User);

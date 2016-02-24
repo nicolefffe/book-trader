@@ -19,9 +19,13 @@ main {
     font-weight: bold;
 }
 
-.enter-info {
+.center-info {
     margin: 2vh 20% 2vh 20%;
     padding-bottom: 10vh;
+}
+
+.profile {
+    font-size: 1.6em;
 }
 
 #results {

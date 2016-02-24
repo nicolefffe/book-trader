@@ -2,10 +2,12 @@ var fs = require("fs");
 var path = require("path");
 var jade = require('jade');
 var FindBook = require(path.join(__dirname,'controllers','server-books.js'))
+var Users = require(path.join(__dirname,'controllers','server-people.js'))
 
 module.exports = function(app,passport) {
 
   var findBook = new FindBook();
+  var users = new Users();
 
   var isLoggedIn = function(req,res,next) {
     if (req.isAuthenticated()) {
@@ -44,7 +46,7 @@ module.exports = function(app,passport) {
 
   app.route('/api/:id')
     .get(isLoggedIn, function(req,res) {
-      res.json(req.user.github);
+      res.json(req.user);
   });
 
   app.route('/auth/github')
@@ -56,11 +58,11 @@ module.exports = function(app,passport) {
         failureRedirect: '/login'
     }));
 
-  app.route('/api/books/').
+  app.route('/find/books/').
     get(function(req,res) {
       var search = req.query.q;
       console.log(search);
-      var kind = req.query.type;
+      var kind = req.query.type || null;
 
       search = search.replace(/ /g,'+');
       search = search.match(/[\w\+]/g);
@@ -71,6 +73,42 @@ module.exports = function(app,passport) {
         console.log(results);
         res.end(JSON.stringify(results));
       });
+  });
+
+  app.route('/find/users/').
+    get(isLoggedIn, function(req,res) {
+      var user = req.user.github.username;
+
+      users.getUser(user,function(err,results) {
+        if (err) {
+          console.log(JSON.stringify(err));
+        }
+        res.end(JSON.stringify(results));
+      });
+    });
+
+  app.route('/find/users/').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      console.log(user);
+      var book = req.query.book || null;
+      var address = req.query.addr || null;
+
+      if (address) {
+        address = address.replace(/\+/g,' ');
+        address = address.match(/[\w ]/g);
+        address = address.join('');
+
+        users.setAddress(user,address,function(results) {
+          res.json(results);
+        });
+      }
+      else if (book) {
+        users.addBook(user,book,function(results) {
+          res.json(results);
+        });
+      }
   });
 
 };

@@ -5,4 +5,21 @@ html(lang='en')
 
     body
         main
-            h1 Profile
+            h1#welcome Welcome to Book Trader
+            div.center-info
+                h4.text-center Profile
+                div.profile(ng-app='ng-people', ng-controller='PeopleController')
+                    b Username:&nbsp;
+                    {{ user }}
+                    br
+                    b Full name:&nbsp;
+                    {{ display }}
+                    br
+                    b Address:&nbsp;
+                    span(ng-show='!editing') {{ address }}
+                    span(ng-show='editing')
+                        input.form-control(type='text', ng-model='address')
+                    br
+                    button.btn.btn-default(type='submit', ng-show='!editing', ng-click='startEdit()') Edit
+                    button.btn.btn-default(type='submit', ng-show='editing', ng-click='finishEdit()') Submit
+
