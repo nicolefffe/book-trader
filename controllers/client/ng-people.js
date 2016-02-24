@@ -3,7 +3,6 @@ var app = angular.module('ng-people',[]);
 app.controller('PeopleController',['$scope','$http', function($scope, $http) {
 
   $scope.editing = false;
-  var addressObj;
 
   var url = 'http://127.0.0.1:8080/';
 
@@ -22,9 +21,8 @@ app.controller('PeopleController',['$scope','$http', function($scope, $http) {
         $scope.user = response.data.github.username;
         $scope.display = response.data.github.displayName;
         $scope.books = response.data.books;
-        addressObj = response.data.address;
 
-        address(addressObj);
+        address(response.data.address);
 
       });
   };
@@ -40,7 +38,6 @@ app.controller('PeopleController',['$scope','$http', function($scope, $http) {
     q += '&state=' + $scope.state + '&postal=' + $scope.postal + '&country=' + $scope.country;
 
     q = q.replace(/ /g,'+');
-    q = q.replace(/,/g,'');
     q = q.match(/[\w\+=&?]/g);
     q = q.join('');
 
