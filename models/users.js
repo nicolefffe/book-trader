@@ -4,13 +4,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Book = new Schema(
-  { id: String,
+  {
+    id: String,
     available: Boolean
   }
 );
 
 var User = new Schema(
-  { github: {
+  {
+    github: {
       id: String,
       displayName: String,
       username: String,

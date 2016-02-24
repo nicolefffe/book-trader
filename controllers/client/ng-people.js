@@ -26,7 +26,7 @@ app.controller('PeopleController',['$scope','$http', function($scope, $http) {
   };
 
   $scope.finishEdit = function() {
-    var q = 'find/users/?addr=';
+    var q = 'update/?addr=';
 
     var newAddress = $scope.address;
     newAddress = newAddress.replace(/ /g,'+');

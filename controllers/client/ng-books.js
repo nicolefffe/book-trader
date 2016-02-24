@@ -5,7 +5,7 @@ app.controller('BooksController',['$scope','$http', function($scope, $http) {
   $scope.books = false;
 
   $scope.getBooks = function() {
-    var url = 'http://127.0.0.1:8080/find/books/?q=';
+    var url = 'http://127.0.0.1:8080/books/?q=';
 
     $scope.books = false;
 

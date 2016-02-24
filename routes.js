@@ -58,7 +58,7 @@ module.exports = function(app,passport) {
         failureRedirect: '/login'
     }));
 
-  app.route('/find/books/').
+  app.route('/books/').
     get(function(req,res) {
       var search = req.query.q;
       console.log(search);
@@ -75,19 +75,7 @@ module.exports = function(app,passport) {
       });
   });
 
-  app.route('/find/users/').
-    get(isLoggedIn, function(req,res) {
-      var user = req.user.github.username;
-
-      users.getUser(user,function(err,results) {
-        if (err) {
-          console.log(JSON.stringify(err));
-        }
-        res.end(JSON.stringify(results));
-      });
-    });
-
-  app.route('/find/users/').
+  app.route('/update/').
     post(isLoggedIn, function(req,res) {
 
       var user = req.user.github.username;
