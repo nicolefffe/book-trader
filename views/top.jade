@@ -1,0 +1,14 @@
+html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
+    include ./header.jade
+
+    nav.navbar.navbar-default.navbar-fixed-top
+        div.container.person
+            a(href='/profile') hello, {{ user.user }}
+            &nbsp;&nbsp;
+            i.fa.fa-bookmark
+            &nbsp;&nbsp;
+            a(href='/') find a book
+
+    body(style='padding-top: 70px')
+        main
+            h1#welcome Book Trade

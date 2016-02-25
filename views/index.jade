@@ -1,17 +1,25 @@
 doctype html
 
-html(lang='en')
+html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
     include ./header.jade
 
-    body
+    nav.navbar.navbar-default.navbar-fixed-top
+        div.container.person
+            a(href='/profile') hello, {{ user.user }}
+            &nbsp;&nbsp;
+            i.fa.fa-bookmark
+            &nbsp;&nbsp;
+            a(href='/') find a book
+
+    body(style='padding-top: 70px')
         main
             h1#welcome Book Trade
-            div(ng-app='ng-books' ng-controller='BooksController')
+            div
                 div.center-info.input-group
                     input#bookinfo.form-control(type='text', placeholder='Enter book title', ng-model='search')
                     span#getbook.input-group-btn(ng-click='getBooks()')
                         button.btn.btn-default(type='button') Submit
-                div#results(ng-if='books')
+                div#results(ng-if='bookResults')
                     div.book-display(ng-repeat='b in books')
                         img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
                         span.empty-thumb(ng-if='b.isBlank')

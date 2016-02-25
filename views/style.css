@@ -6,10 +6,20 @@ body {
     font-size: 100%;
 }
 
+nav {
+    font-size: 100%;
+}
+
 main {
     margin: 2vh 10vw 2vh 10vw;
     background-color: white;
     opacity: 0.9;
+}
+
+.person {
+  text-align: right;
+  font-size: 1.6em;
+  padding-top: 10px;
 }
 
 #welcome {

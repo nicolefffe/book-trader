@@ -1,13 +1,21 @@
 doctype html
 
-html(lang='en')
+html(lang='en',ng-app='book-app', ng-controller='BookTradeController')
     include ./header.jade
 
-    body
+    nav.navbar.navbar-default.navbar-fixed-top
+        div.container.person
+            a(href='/profile') hello, {{ user.user }}
+            &nbsp;&nbsp;
+            i.fa.fa-bookmark
+            &nbsp;&nbsp;
+            a(href='/') find a book
+
+    body(style='padding-top: 70px')
         main
             h1#welcome Book Trade
-            div.center-info(ng-app='ng-people', ng-controller='PeopleController')
-                h3.text-center Profile
+            div.center-info
+                h3.text-center Your Profile
                 div.profile
                     span.sub-profile1
                         b Username:
@@ -16,11 +24,11 @@ html(lang='en')
                         br
                         b Address:
                     span.sub-profile2
-                        {{ user }}
+                        {{ user.user }}
                         br
-                        {{ display }}
+                        {{ user.display }}
                         br
-                        span(ng-show='!editing') {{ street }}, {{ city }}, {{ state }} {{ postal }}, {{ country }}
+                        span(ng-show='!editing') {{ user.address.street }}, {{ user.address.city }}, {{ user.address.state }} {{ user.address.postal }}, {{ user.address.country }}
                         span(ng-show='editing')
                             div.input-group.address
                                 span.input-group-addon.prefix Street
