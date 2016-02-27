@@ -20,9 +20,10 @@ main {
   text-align: right;
   font-size: 1.6em;
   padding-top: 10px;
+  margin-right: 10vw;
 }
 
-#welcome {
+.welcome {
     text-align: center;
     padding-top: 6vh;
     padding-bottom: 6vh;
@@ -57,7 +58,7 @@ main {
     width: 100%;
 }
 
-#results {
+.results {
     margin: 2vh 20% 2vh 20%;
     font-size: 1.2em;
 }

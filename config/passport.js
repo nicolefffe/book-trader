@@ -33,10 +33,20 @@ module.exports = function (passport) {
                 else {
                     var newUser = new User();
 
+                    newUser.books = [];
+
                     newUser.github.id = profile.id;
                     newUser.github.username = profile.username;
                     newUser.github.displayName = profile.displayName;
                     newUser.github.publicRepos = profile._json.public_repos;
+
+                    newUser.address = {};
+
+                    newUser.address.street = '';
+                    newUser.address.city = '';
+                    newUser.address.state = '';
+                    newUser.address.postal = '';
+                    newUser.address.country = '';
 
                     newUser.save(function (err) {
                         if (err) {

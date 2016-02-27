@@ -4,7 +4,7 @@ html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
     include ./header.jade
 
     nav.navbar.navbar-default.navbar-fixed-top
-        div.container.person
+        div.person
             a(href='/profile') hello, {{ user.user }}
             &nbsp;&nbsp;
             i.fa.fa-bookmark
@@ -13,13 +13,13 @@ html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
 
     body(style='padding-top: 70px')
         main
-            h1#welcome Book Trade
+            h1.welcome Book Trade
             div
                 div.center-info.input-group
-                    input#bookinfo.form-control(type='text', placeholder='Enter book title', ng-model='search')
-                    span#getbook.input-group-btn(ng-click='getBooks()')
+                    input.form-control(type='text', placeholder='Enter book title', ng-model='search')
+                    span.input-group-btn(ng-click='getBooks()')
                         button.btn.btn-default(type='button') Submit
-                div#results(ng-if='bookResults')
+                div.results(ng-if='bookResults')
                     div.book-display(ng-repeat='b in books')
                         img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
                         span.empty-thumb(ng-if='b.isBlank')
@@ -32,3 +32,5 @@ html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
                         br
                         br
                         {{ b.description }}
+                        &nbsp;&nbsp;
+                        a(href='#' ng-click='addBook(b.id)') Add this book to my library

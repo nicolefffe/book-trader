@@ -60,28 +60,45 @@ module.exports = function(app,passport) {
 
   app.route('/books/').
     get(function(req,res) {
-      var search = req.query.q;
-      console.log(search);
-      var kind = req.query.type || null;
 
-      search = search.replace(/ /g,'+');
-      search = search.match(/[\w\+]/g);
-      search = search.join('');
-      search = search.replace(/\+$/,'');
+      var kind = req.query.type;
 
-      findBook.getTitle(search,function(results) {
-        console.log(results);
-        res.end(JSON.stringify(results));
-      });
+      if (kind === 'search') {
+        var search = req.query.q;
+
+        search = search.replace(/ /g,'+');
+        search = search.match(/[\w\+]/g);
+        search = search.join('');
+        search = search.replace(/\+$/,'');
+
+        findBook.getTitle(search,function(results) {
+          res.json(results);
+        });
+      }
+
+      else if (kind === 'lib') {
+        var library = req.query.q;
+
+        library = library.match(/[\w,]/g);
+        library = library.join('');
+        library = library.split(',')
+        console.log(library);
+
+        findBook.getLibrary(library,function(results) {
+          res.json(results);
+        });
+      }
+
   });
 
   app.route('/update/').
     post(isLoggedIn, function(req,res) {
 
       var user = req.user.github.username;
-      console.log(user);
       var book = req.query.book || null;
       var address = req.query.addr || null;
+      var trade = req.query.trade || null;
+      var newBook = req.query.new || null;
 
       if (address) {
         var obj = {
@@ -98,9 +115,16 @@ module.exports = function(app,passport) {
       }
 
       else if (book) {
-        users.addBook(user,book,function(results) {
-          res.json(results);
-        });
+        if (newBook) {
+          users.addBook(user,req.query.bookID,function(results) {
+            res.json(results);
+          });
+        }
+        else if (trade !== null) {
+          users.tradeable(user,req.query.bookID,trade,function(results) {
+            res.json(results);
+          });
+        }
       }
   });
 

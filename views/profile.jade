@@ -4,7 +4,7 @@ html(lang='en',ng-app='book-app', ng-controller='BookTradeController')
     include ./header.jade
 
     nav.navbar.navbar-default.navbar-fixed-top
-        div.container.person
+        div.person
             a(href='/profile') hello, {{ user.user }}
             &nbsp;&nbsp;
             i.fa.fa-bookmark
@@ -13,9 +13,9 @@ html(lang='en',ng-app='book-app', ng-controller='BookTradeController')
 
     body(style='padding-top: 70px')
         main
-            h1#welcome Book Trade
+            h1.welcome Book Trade
             div.center-info
-                h3.text-center Your Profile
+                h3.text-center My Library
                 div.profile
                     span.sub-profile1
                         b Username:
@@ -32,21 +32,38 @@ html(lang='en',ng-app='book-app', ng-controller='BookTradeController')
                         span(ng-show='editing')
                             div.input-group.address
                                 span.input-group-addon.prefix Street
-                                input.form-control(type='text', ng-model='street')
+                                input.form-control(type='text', ng-model='street' required)
                             div.input-group.address
                                 span.input-group-addon.prefix City
-                                input.form-control(type='text', ng-model='city')
+                                input.form-control(type='text', ng-model='city' required)
                             div.input-group.address
                                 span.input-group-addon.prefix State
-                                input.form-control(type='text', ng-model='state')
+                                input.form-control(type='text', ng-model='state' required)
                             div.input-group.address
                                 span.input-group-addon.prefix Postal Code
-                                input.form-control(type='text', ng-model='postal')
+                                input.form-control(type='text', ng-model='postal' required)
                             div.input-group.address
                                 span.input-group-addon.prefix Country
-                                input.form-control(type='text', ng-model='country')
+                                input.form-control(type='text', ng-model='country' required)
                             button.btn.btn-default(type='submit', ng-click='finishEdit()', style='margin-top: 2vh') Submit
+                            button.btn.btn-default(type='submit', ng-click='cancelEdit()', style='margin-top: 2vh') Cancel
                 div.profile
                     button.btn.btn-default(type='submit', ng-show='!editing', ng-click='startEdit()') Edit
+            div.results(ng-if='books')
+                    div.book-display(ng-repeat='b in books')
+                        img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
+                        span.empty-thumb(ng-if='b.isBlank')
+                            i.fa.fa-bookmark-o.bookmark
+                        b {{ b.title }}
+                        br
+                        {{ b.author }}
+                        br
+                        {{ b.date }}
+                        br
+                        br
+                        {{ b.description }}
+                        &nbsp;&nbsp;
+                        a(href='#' ng-if='tradeable(false,b.id)' ng-click='tradeable(true,b.id)') Tradeable: click to change
+                        a(href='#' ng-if='!tradeable(false,b.id)' ng-click='tradeable(true,b.id)') Click to make available for trade
 
 

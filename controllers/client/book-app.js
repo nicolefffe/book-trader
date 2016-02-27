@@ -4,8 +4,7 @@ app.service('BookService',function($http) {
 
   this.search = function(search,callback) {
 
-    var books = {};
-    var url = 'http://127.0.0.1:8080/books/?q=';
+    var url = 'http://127.0.0.1:8080/books/?type=search&q=';
 
     var query = search;
     query = query.replace(/ /g,'+');
@@ -16,8 +15,26 @@ app.service('BookService',function($http) {
     $http.get(url + query)
     .then(function(response) {
 
-      books = response.data.books;
-      callback(books);
+      callback(response.data.books);
+
+    });
+  };
+
+  this.getLibrary = function(arr,callback) {
+
+    var library = arr;
+    var url = 'http://127.0.0.1:8080/books/?type=lib&q=';
+
+    library.forEach(function(id) {
+      url += id + ',';
+    });
+
+    url = url.replace(/,$/,'');
+
+    $http.get(url)
+    .then(function(response) {
+
+      callback(response.data.books);
 
     });
   };
@@ -40,7 +57,7 @@ app.factory('User',function($http) {
     user.info.address.country = obj.country;
   };
 
-  user.getUser = function() {
+  user.getUser = function(callback) {
 
     $http.get(url + 'api/:id')
       .then(function(response) {
@@ -51,6 +68,7 @@ app.factory('User',function($http) {
 
         user.setAddress(response.data.address);
 
+        callback();
       });
   };
 
@@ -68,6 +86,29 @@ app.factory('User',function($http) {
     });
   };
 
+  user.addBook = function(id) {
+    var q = 'update/?book=true&new=true&bookID=' + id;
+
+    q = q.replace(/ /g,'+');
+    q = q.match(/[\w\+=&?]/g);
+    q = q.join('');
+    console.log(url + q);
+
+    $http.post(url + q)
+      .then(function(response) {
+        user.info.books = response.data.books;
+    });
+  };
+
+  user.tradeable = function(bool,id) {
+    var q = 'update/?book=true&trade=' + bool + '&bookID=' + id;
+
+    $http.post(url + q)
+      .then(function(response) {
+        user.info.books = response.data.books;
+    })
+  };
+
   return user;
 
 });
@@ -76,10 +117,21 @@ app.controller('BookTradeController',function($scope, $http, BookService, User) 
 
   $scope.editing = false;
   $scope.bookResults = false;
+  var library = [];
 
-  User.getUser();
+  User.getUser(function() {
+    $scope.user = User.info;
 
-  $scope.user = User.info;
+    if (User.info.books.length > 0) {
+      User.info.books.forEach(function(book) {
+        library.push(book.id);
+      });
+      BookService.getLibrary(library,function(results) {
+        $scope.books = results;
+      });
+    }
+    else { $scope.books = null; }
+  });
 
   $scope.startEdit = function() {
     $scope.editing = true;
@@ -97,6 +149,10 @@ app.controller('BookTradeController',function($scope, $http, BookService, User) 
     $scope.editing = false;
   };
 
+  $scope.cancelEdit = function() {
+    $scope.editing = false;
+  };
+
   $scope.getBooks = function() {
     $scope.bookResults = false;
 
@@ -104,6 +160,30 @@ app.controller('BookTradeController',function($scope, $http, BookService, User) 
       $scope.books = results;
       $scope.bookResults = true;
     });
+  };
+
+  $scope.addBook = function(id) {
+    User.addBook(id);
+  };
+
+  $scope.tradeable = function(toggle,id) {
+
+
+      var match = User.info.books.filter(function(element) {
+        return element.id === id;
+      });
+
+      var avail = match[0].available;
+
+    if (!toggle) {
+      return avail;
+    }
+
+    else {
+      User.tradeable(!avail,id,function() {
+
+      });
+    }
   };
 
 });
