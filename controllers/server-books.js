@@ -56,6 +56,7 @@ module.exports = function() {
         results.on('end',function() {
 
           var books = [];
+          console.log(reply);
           var obj = JSON.parse(reply);
 
           if (obj.items.length > 0) {
@@ -81,7 +82,6 @@ module.exports = function() {
 
     arr.forEach(function(book) {
       var idPath = path + '/' + book + '?key=' + booksKey;
-      console.log(googleBooks + idPath);
 
       var req = https.request({
           hostname: googleBooks,
@@ -99,7 +99,11 @@ module.exports = function() {
 
             var obj = JSON.parse(reply);
 
-            books.push(formatBook(obj));
+            if (!obj) { }
+            else if (obj.hasOwnProperty('error')) {}
+            else {
+              books.push(formatBook(obj));
+            }
 
             if (completed === arr.length) {
               callback({'books': books});

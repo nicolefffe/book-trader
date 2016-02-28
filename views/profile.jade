@@ -4,18 +4,19 @@ html(lang='en',ng-app='book-app', ng-controller='BookTradeController')
     include ./header.jade
 
     nav.navbar.navbar-default.navbar-fixed-top
-        div.person
-            a(href='/profile') hello, {{ user.user }}
-            &nbsp;&nbsp;
-            i.fa.fa-bookmark
-            &nbsp;&nbsp;
-            a(href='/') find a book
+        div.container-fluid
+            form.navbar-form.navbar-left(role='search', style='padding-left: 10vw')
+                div.form-group
+                    input.form-control(type='text', placeholder='Search for a title', ng-model='search')
+                button.btn.btn-default(type='submit' ng-click='getBooks()') Submit
+            ul.nav.navbar-nav.navbar-right
+                li(style='font-size: 1.5em; padding-right: 10vw')
+                    a(href='/profile') hello, {{ user.user }}
 
     body(style='padding-top: 70px')
         main
-            h1.welcome Book Trade
+            h1.welcome My Library
             div.center-info
-                h3.text-center My Library
                 div.profile
                     span.sub-profile1
                         b Username:

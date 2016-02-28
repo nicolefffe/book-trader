@@ -4,14 +4,26 @@ html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
     include ./header.jade
 
     nav.navbar.navbar-default.navbar-fixed-top
-        div.person
-            a(href='/profile') hello, {{ user.user }}
-            &nbsp;&nbsp;
-            i.fa.fa-bookmark
-            &nbsp;&nbsp;
-            a(href='/') find a book
+        div.container-fluid
+            form.navbar-form.navbar-left(role='search', style='padding-left: 10vw')
+                div.form-group
+                    input.form-control(type='text', placeholder='Search for a title', ng-model='search')
+                button.btn.btn-default(type='submit' ng-click='getBooks()') Submit
+            ul.nav.navbar-nav.navbar-right
+                li(style='font-size: 1.5em; padding-right: 10vw')
+                    a(href='/profile') hello, {{ user.user }}
 
     body(style='padding-top: 70px')
+        div.dialog(ng-if='bookAdded')
+            div.dialog-close
+                a(href='#' ng-click='closeDialog()') Close
+            div.dialog-text
+                {{ bookAdded }} has been added to your library!
+                br
+                br
+                i.fa.fa-bookmark
+                &nbsp;&nbsp;
+                a(href='/profile') View my library
         main
             h1.welcome Book Trade
             div
@@ -33,4 +45,5 @@ html(lang='en', ng-app='book-app', ng-controller='BookTradeController')
                         br
                         {{ b.description }}
                         &nbsp;&nbsp;
-                        a(href='#' ng-click='addBook(b.id)') Add this book to my library
+                        a(href='#' ng-click='addBook(b.id,b.title)') Add this book to my library
+

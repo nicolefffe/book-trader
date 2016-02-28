@@ -14,9 +14,7 @@ app.service('BookService',function($http) {
 
     $http.get(url + query)
     .then(function(response) {
-
-      callback(response.data.books);
-
+        callback(response.data.books);
     });
   };
 
@@ -25,17 +23,11 @@ app.service('BookService',function($http) {
     var library = arr;
     var url = 'http://127.0.0.1:8080/books/?type=lib&q=';
 
-    library.forEach(function(id) {
-      url += id + ',';
-    });
+    library = library.join(',');
 
-    url = url.replace(/,$/,'');
-
-    $http.get(url)
+    $http.get(url + library)
     .then(function(response) {
-
-      callback(response.data.books);
-
+        callback(response.data.books);
     });
   };
 
@@ -117,6 +109,8 @@ app.controller('BookTradeController',function($scope, $http, BookService, User) 
 
   $scope.editing = false;
   $scope.bookResults = false;
+  $scope.bookAdded = false;
+
   var library = [];
 
   User.getUser(function() {
@@ -127,7 +121,12 @@ app.controller('BookTradeController',function($scope, $http, BookService, User) 
         library.push(book.id);
       });
       BookService.getLibrary(library,function(results) {
-        $scope.books = results;
+        if (results.error) {
+          $scope.books = null;
+        }
+        else {
+          $scope.books = results;
+        }
       });
     }
     else { $scope.books = null; }
@@ -157,33 +156,39 @@ app.controller('BookTradeController',function($scope, $http, BookService, User) 
     $scope.bookResults = false;
 
     BookService.search($scope.search,function(results) {
-      $scope.books = results;
-      $scope.bookResults = true;
+      if (results.error) {
+        $scope.books = null;
+      }
+      else {
+        $scope.books = results;
+        $scope.bookResults = true;
+      }
     });
   };
 
-  $scope.addBook = function(id) {
+  $scope.addBook = function(id,title) {
     User.addBook(id);
+    $scope.bookAdded = title;
   };
 
   $scope.tradeable = function(toggle,id) {
+    var match = User.info.books.filter(function(element) {
+      return element.id === id;
+    });
 
-
-      var match = User.info.books.filter(function(element) {
-        return element.id === id;
-      });
-
-      var avail = match[0].available;
+    var avail = match[0].available;
 
     if (!toggle) {
       return avail;
     }
 
     else {
-      User.tradeable(!avail,id,function() {
-
-      });
+      User.tradeable(!avail,id);
     }
+  };
+
+  $scope.closeDialog = function() {
+    $scope.bookAdded = false;
   };
 
 });
