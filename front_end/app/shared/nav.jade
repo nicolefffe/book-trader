@@ -1,0 +1,9 @@
+nav.navbar.navbar-default.navbar-fixed-top
+    div.container-fluid
+        form.navbar-form.navbar-left(role='search', style='padding-left: 10vw')
+            div.form-group
+                input.form-control(type='text', placeholder='Search for a title', ng-model='search.search')
+            button.btn.btn-default(type='submit' ng-click='search.getBooks()') Submit
+        ul.nav.navbar-nav.navbar-right
+            li(style='font-size: 1.5em; padding-right: 10vw')
+                a(href='/profile') hello, {{ search.user.user }}

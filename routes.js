@@ -18,14 +18,14 @@ module.exports = function(app,passport) {
   };
 
   app.locals.pretty = true;
-  app.locals.basedir = path.join(process.env.PWD,'views');
+  app.locals.basedir = path.join(process.env.PWD,'front_end');
 
-  app.set('views',path.join(__dirname,'views'));
+  app.set('views','./front_end');
   app.set('view engine', 'jade');
 
   app.route('/')
     .get(isLoggedIn, function(req,res) {
-      res.render('index');
+      res.render(path.join('app/components/browse','browse'));
     });
 
   app.route('/login')
@@ -41,7 +41,7 @@ module.exports = function(app,passport) {
 
   app.route('/profile')
     .get(isLoggedIn, function(req,res) {
-      res.render('profile');
+      res.render(path.join('app/components/profile','profile'));
     });
 
   app.route('/api/:id')
@@ -82,7 +82,6 @@ module.exports = function(app,passport) {
         library = library.match(/[\w,]/g);
         library = library.join('');
         library = library.split(',')
-        console.log(library);
 
         findBook.getLibrary(library,function(results) {
           res.json(results);
@@ -99,6 +98,7 @@ module.exports = function(app,passport) {
       var address = req.query.addr || null;
       var trade = req.query.trade || null;
       var newBook = req.query.new || null;
+      var remove = req.query.del || null;
 
       if (address) {
         var obj = {
@@ -117,6 +117,11 @@ module.exports = function(app,passport) {
       else if (book) {
         if (newBook) {
           users.addBook(user,req.query.bookID,function(results) {
+            res.json(results);
+          });
+        }
+        else if (remove) {
+          users.removeBook(user,req.query.bookID,function(results) {
             res.json(results);
           });
         }

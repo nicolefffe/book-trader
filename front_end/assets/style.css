@@ -1,6 +1,6 @@
 body {
     font-family: 'Lato', sans-serif;
-    background-image: url('includes/bg.jpg');
+    background-image: url('/assets/img/bg.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-size: 100%;
@@ -54,7 +54,6 @@ nav {
 
 .results {
     margin: 2vh 20% 2vh 20%;
-    font-size: 1.2em;
 }
 
 .thumb {
@@ -80,16 +79,15 @@ nav {
 .book-display {
     overflow: auto;
     padding-bottom: 4vh;
+    font-size: 1.2em;
 }
 
 .dialog {
     position: absolute;
     width: 50vw;
-    height: 40vh;
     top: 30vh;
     left: 25vw;
     background-color: white;
-    font-size: 2em;
     z-index: 2;
 }
 
@@ -101,4 +99,5 @@ nav {
 
 .dialog-text {
     margin: 4vh 5vw 10vh 5vw;
+    font-size: 1.8em;
 }

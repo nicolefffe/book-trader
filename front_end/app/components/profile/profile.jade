@@ -1,0 +1,94 @@
+doctype html
+
+html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
+
+    include /app/shared/header.jade
+    script(type='text/javascript', src='/app/components/profile/profile-ctrl.js')
+
+    include /app/shared/nav.jade
+
+    body(style='padding-top: 70px')
+        div.dialog(ng-if='search.bookAdded')
+            div.dialog-close
+                a(href='#' ng-click='search.closeDialog()') Close
+            div.dialog-text
+                {{ search.bookAdded }} has been added to your library!
+                br
+                br
+                i.fa.fa-bookmark
+                &nbsp;&nbsp;
+                a(href='#', ng-click='search.closeDialog()') Return to library
+        div.dialog(ng-if='search.results')
+            div.dialog-close
+                a(href='#' ng-click='search.closeDialog()') Close
+            div.results
+                div.book-display(ng-repeat='b in search.results')
+                    img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
+                    span.empty-thumb(ng-if='b.isBlank')
+                        i.fa.fa-bookmark-o.bookmark
+                    b {{ b.title }}
+                    br
+                    {{ b.author }}
+                    br
+                    {{ b.date }}
+                    br
+                    br
+                    {{ b.description }}
+                    &nbsp;&nbsp;
+                    a(href='#' ng-click='search.addBook(b.id,b.title)') Add this book to my library
+        main(ng-controller='ProfileCtrl as profile')
+            h1.welcome My Library
+            div.center-info
+                div.profile
+                    span.sub-profile1
+                        b Username:
+                        br
+                        b Full name:
+                        br
+                        b Address:
+                    span.sub-profile2
+                        {{ profile.user.user }}
+                        br
+                        {{ profile.user.display }}
+                        br
+                        span(ng-show='!profile.editing') {{ profile.user.address.street }}, {{ profile.user.address.city }}, {{ profile.user.address.state }} {{ profile.user.address.postal }}, {{ profile.user.address.country }}
+                        span(ng-show='profile.editing')
+                            div.input-group.address
+                                span.input-group-addon.prefix Street
+                                input.form-control(type='text', ng-model='profile.street' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix City
+                                input.form-control(type='text', ng-model='profile.city' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix State
+                                input.form-control(type='text', ng-model='profile.state' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix Postal Code
+                                input.form-control(type='text', ng-model='profile.postal' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix Country
+                                input.form-control(type='text', ng-model='profile.country' required)
+                            button.btn.btn-default(type='submit', ng-click='profile.finishEdit()', style='margin-top: 2vh') Submit
+                            button.btn.btn-default(type='submit', ng-click='profile.cancelEdit()', style='margin-top: 2vh') Cancel
+                div.profile
+                    button.btn.btn-default(type='submit', ng-show='!profile.editing', ng-click='profile.startEdit()') Edit
+            div.results
+                    div.book-display(ng-repeat='b in profile.libDisplay')
+                        img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
+                        span.empty-thumb(ng-if='b.isBlank')
+                            i.fa.fa-bookmark-o.bookmark
+                        b {{ b.title }}
+                        br
+                        {{ b.author }}
+                        br
+                        {{ b.date }}
+                        br
+                        br
+                        {{ b.description }}
+                        br
+                        button.btn.btn-default.btn-xs(ng-click='profile.removeBook(b.id)') Remove from library
+                        &nbsp;&nbsp;
+                        button.btn.btn-default.btn-xs(ng-if='profile.tradeable(b.id)' ng-click='profile.changeTrade(b.id)') Tradeable: click to change
+                        button.btn.btn-default.btn-xs(ng-if='!profile.tradeable(b.id)' ng-click='profile.changeTrade(b.id)') Click to make available for trade
+
+

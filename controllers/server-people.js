@@ -13,7 +13,7 @@ module.exports = function() {
           return element.id === book;
         });
         if (match.length > 0) {
-          console.log(id + ' already in library');
+          console.log('already in library');
           callback(doc);
         }
 
@@ -28,6 +28,25 @@ module.exports = function() {
         }
       }
     });
+  };
+
+  this.removeBook = function(user,book,callback) {
+    User.update(
+      {'github.username': user},
+      {$pull: {'books': {'id': book}}},
+      {safe: true},
+      function(err) {
+        if (err) {
+          console.log(err);
+        }
+        User.findOne({'github.username': user}, function(err,doc) {
+          if (err) {
+            console.log(err);
+            callback(doc);
+          }
+        });
+      }
+    )
   };
 
   this.tradeable = function(user,book,bool,callback) {

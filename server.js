@@ -24,8 +24,7 @@ app.use(passport.session());
 var mongo = process.env.MONGO_URI || undefined;
 mongoose.connect(mongo);
 
-app.use(express.static(path.join(__dirname,'/views')));
-app.use(express.static(path.join(__dirname,'/controllers/client')));
+app.use(express.static(path.join(__dirname,'/front_end')));
 
 routes(app,passport);
 

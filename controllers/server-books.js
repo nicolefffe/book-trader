@@ -13,7 +13,7 @@ module.exports = function() {
     if (d.length > 200) {
         d = d.slice(0,190) + '...';
     }
-    d = d.replace(/<[bpr\/]*>/g,'');
+    d = d.replace(/<[bpri\/]*>/g,'');
 
     var img = true;
     var blank = false;
