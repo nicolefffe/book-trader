@@ -4,10 +4,7 @@ function ProfileCtrl(BookService, User) {
 
   User.getUser(function() {
     vm.user = User.info;
-
-    BookService.getLibrary(User.info.library,function(results) {
-      vm.libDisplay = results;
-    });
+    vm.library = User.info.books;
   });
 
   vm.editing = false;
@@ -36,8 +33,7 @@ function ProfileCtrl(BookService, User) {
 
     User.removeBook(id,function() {
       BookService.removeFromDisplay(id,User.info.library,function(results) {
-        vm.libDisplay = results;
-        updateLibrary();
+        vm.library = results;
       });
     });
   };

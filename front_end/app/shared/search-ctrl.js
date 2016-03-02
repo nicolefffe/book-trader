@@ -14,15 +14,16 @@ function SearchCtrl(BookService, User) {
 
     BookService.search(query,function(results) {
       vm.results = results;
+      console.log(vm.results);
       vm.search = null;
     });
   };
 
-  vm.addBook = function(id,title) {
+  vm.addBook = function(book) {
 
-    User.addBook(id,function() {
+    User.addBook(book,function() {
 
-      vm.bookAdded = title;
+      vm.bookAdded = book.google.title;
 
     });
   };

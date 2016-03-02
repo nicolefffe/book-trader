@@ -23,19 +23,19 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                 a(href='#' ng-click='search.closeDialog()') Close
             div.results
                 div.book-display(ng-repeat='b in search.results')
-                    img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
-                    span.empty-thumb(ng-if='b.isBlank')
+                    img.thumb(ng-if='b.google.isIMG' src='{{ b.google.img }}', alt='{{ b.google.title }}')
+                    span.empty-thumb(ng-if='b.google.isBlank')
                         i.fa.fa-bookmark-o.bookmark
-                    b {{ b.title }}
+                    b {{ b.google.title }}
                     br
-                    {{ b.author }}
+                    {{ b.google.author }}
                     br
-                    {{ b.date }}
+                    {{ b.google.date }}
                     br
                     br
-                    {{ b.description }}
+                    {{ b.google.description }}
                     &nbsp;&nbsp;
-                    a(href='#' ng-click='search.addBook(b.id,b.title)') Add this book to my library
+                    a(href='#' ng-click='search.addBook(b)') Add this book to my library
         main(ng-controller='ProfileCtrl as profile')
             h1.welcome My Library
             div.center-info
@@ -73,22 +73,22 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                 div.profile
                     button.btn.btn-default(type='submit', ng-show='!profile.editing', ng-click='profile.startEdit()') Edit
             div.results
-                    div.book-display(ng-repeat='b in profile.libDisplay')
-                        img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
-                        span.empty-thumb(ng-if='b.isBlank')
+                    div.book-display(ng-repeat='b in profile.library')
+                        img.thumb(ng-if='b.google.isIMG' src='{{ b.google.img }}', alt='{{ b.google.title }}')
+                        span.empty-thumb(ng-if='b.google.isBlank')
                             i.fa.fa-bookmark-o.bookmark
-                        b {{ b.title }}
+                        b {{ b.google.title }}
                         br
-                        {{ b.author }}
+                        {{ b.google.author }}
                         br
-                        {{ b.date }}
+                        {{ b.google.date }}
                         br
                         br
-                        {{ b.description }}
+                        {{ b.google.description }}
                         br
                         button.btn.btn-default.btn-xs(ng-click='profile.removeBook(b.id)') Remove from library
                         &nbsp;&nbsp;
-                        button.btn.btn-default.btn-xs(ng-if='profile.tradeable(b.id)' ng-click='profile.changeTrade(b.id)') Tradeable: click to change
-                        button.btn.btn-default.btn-xs(ng-if='!profile.tradeable(b.id)' ng-click='profile.changeTrade(b.id)') Click to make available for trade
+                        button.btn.btn-default.btn-xs(ng-if='profile.tradeable(b.id)' ng-click='profile.changeTrade(b.id)') Make unavailable for trade
+                        button.btn.btn-default.btn-xs(ng-if='!profile.tradeable(b.id)' ng-click='profile.changeTrade(b.id)') Make available for trade
 
 

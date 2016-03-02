@@ -7,7 +7,17 @@ var Book = new Schema(
   {
     id: String,
     available: Boolean,
-    borrower: String
+    borrower: String,
+    google: {
+      title: String,
+      author: String,
+      publisher: String,
+      date: String,
+      description: String,
+      isIMG: Boolean,
+      isBlank: Boolean,
+      img: String
+    }
   }
 );
 

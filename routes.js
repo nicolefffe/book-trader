@@ -1,6 +1,8 @@
 var fs = require("fs");
 var path = require("path");
 var jade = require('jade');
+var bodyParser = require('body-parser');
+
 var FindBook = require(path.join(__dirname,'controllers','server-books.js'))
 var Users = require(path.join(__dirname,'controllers','server-people.js'))
 
@@ -19,6 +21,7 @@ module.exports = function(app,passport) {
 
   app.locals.pretty = true;
   app.locals.basedir = path.join(process.env.PWD,'front_end');
+  app.use(bodyParser.json());
 
   app.set('views','./front_end');
   app.set('view engine', 'jade');
@@ -90,46 +93,45 @@ module.exports = function(app,passport) {
 
   });
 
-  app.route('/update/').
+  app.route('/book/new').
     post(isLoggedIn, function(req,res) {
 
       var user = req.user.github.username;
-      var book = req.query.book || null;
-      var address = req.query.addr || null;
+      var book = req.body;
+
+      users.addBook(user,book,function(results) {
+        res.json(results);
+      });
+  });
+
+  app.route('/address').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      var address = req.body;
+
+      users.setAddress(user,address,function(results) {
+        res.json(results);
+      });
+  });
+
+  app.route('/book/update').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      var book = req.query.book;
       var trade = req.query.trade || null;
-      var newBook = req.query.new || null;
       var remove = req.query.del || null;
 
-      if (address) {
-        var obj = {
-          'street': req.query.street || '',
-          'city': req.query.city || '',
-          'state': req.query.state || '',
-          'postal': req.query.postal || '',
-          'country': req.query.country || ''
-        };
-
-        users.setAddress(user,obj,function(results) {
+      if (remove) {
+        users.removeBook(user,req.query.bookID,function(results) {
           res.json(results);
         });
       }
-
-      else if (book) {
-        if (newBook) {
-          users.addBook(user,req.query.bookID,function(results) {
-            res.json(results);
-          });
-        }
-        else if (remove) {
-          users.removeBook(user,req.query.bookID,function(results) {
-            res.json(results);
-          });
-        }
-        else if (trade !== null) {
-          users.tradeable(user,req.query.bookID,trade,function(results) {
-            res.json(results);
-          });
-        }
+      else if (trade) {
+        users.tradeable(user,req.query.bookID,function(results) {
+          res.json(results);
+        });
       }
   });
 

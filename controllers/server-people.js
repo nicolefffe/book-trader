@@ -3,14 +3,14 @@ var User = require('../models/users');
 
 module.exports = function() {
 
-  this.addBook = function(user,book,callback) {
+  this.addBook = function(user,bookObj,callback) {
     User.findOne({'github.username': user}, function(err,doc) {
       if (err) {
         console.log(err);
       }
       else {
         var match = doc.books.filter(function(element) {
-          return element.id === book;
+          return element.id === bookObj.id;
         });
         if (match.length > 0) {
           console.log('already in library');
@@ -18,7 +18,7 @@ module.exports = function() {
         }
 
         else {
-          doc.books.push({'id': book, 'available': true});
+          doc.books.push({'id': bookObj.id, 'available': true, 'google': bookObj.google});
           doc.save(function(err) {
             if (err) {
               console.log(err);
@@ -49,7 +49,7 @@ module.exports = function() {
     )
   };
 
-  this.tradeable = function(user,book,bool,callback) {
+  this.tradeable = function(user,book,callback) {
     User.findOne({'github.username': user}, function(err,doc) {
       if (err) {
         console.log(err);
@@ -59,7 +59,7 @@ module.exports = function() {
           return element.id === book;
         });
         if (match.length > 0) {
-          match[0].available = bool;
+          match[0].available = !match[0].available;
           doc.save(function(err) {
             if (err) {
               console.log(err);

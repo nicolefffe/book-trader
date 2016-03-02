@@ -24,15 +24,16 @@ module.exports = function() {
 
     var formatted = {
       "id": book.id,
-      "title": book.volumeInfo.title || 'n/a',
-      "author": (book.volumeInfo.authors) ? book.volumeInfo.authors.join(', ') : 'n/a',
-      "publisher": book.volumeInfo.publisher || 'n/a',
-      "date": book.volumeInfo.publishedDate || 'n/a',
-      "description": d,
-      "isIMG": img,
-      "isBlank": blank,
-      "img": (book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : undefined,
-      "lang": book.volumeInfo.language || 'n/a'
+      "google": {
+        "title": book.volumeInfo.title || 'n/a',
+        "author": (book.volumeInfo.authors) ? book.volumeInfo.authors.join(', ') : 'n/a',
+        "publisher": book.volumeInfo.publisher || 'n/a',
+        "date": book.volumeInfo.publishedDate || 'n/a',
+        "description": d,
+        "isIMG": img,
+        "isBlank": blank,
+        "img": (book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : undefined
+      }
     };
 
     return formatted;
@@ -56,7 +57,6 @@ module.exports = function() {
         results.on('end',function() {
 
           var books = [];
-          console.log(reply);
           var obj = JSON.parse(reply);
 
           if (obj.items.length > 0) {

@@ -37,23 +37,18 @@ function User($http) {
   };
 
   user.newAddress = function(addressObj) {
-    var q = 'update/?addr=true&street=' + addressObj.street + '&city=' + addressObj.city;
-    q += '&state=' + addressObj.state + '&postal=' + addressObj.postal + '&country=' + addressObj.country;
+    var q = 'address';
 
-    q = q.replace(/ /g,'+');
-    q = q.match(/[\w\+=&?]/g);
-    q = q.join('');
-
-    $http.post(url + q)
+    $http.post(url + q, JSON.stringify(addressObj))
       .then(function(response) {
         setAddress(response.data.address);
     });
   };
 
-  user.addBook = function(id,callback) {
-    var q = 'update/?book=true&new=true&bookID=' + id;
+  user.addBook = function(book,callback) {
+    var q = 'book/new';
     var match = user.info.library.filter(function(element) {
-      return element === id;
+      return element === book.id;
     });
 
     if (match.length > 0) {
@@ -62,9 +57,9 @@ function User($http) {
 
     else {
 
-      user.info.library.push(id);
+      user.info.library.push(book.id);
 
-      $http.post(url + q)
+      $http.post(url + q, JSON.stringify(book))
         .then(function(response) {
           user.info.books = response.data.books;
           callback();
@@ -73,7 +68,7 @@ function User($http) {
   };
 
   user.removeBook = function(id,callback) {
-    var q = 'update/?book=true&del=true&bookID=' + id;
+    var q = 'book/update/?del=true&bookID=' + id;
     var match = user.info.library.filter(function(element) {
       return element !== id;
     });
@@ -93,7 +88,7 @@ function User($http) {
   };
 
   user.changeTrade = function(id) {
-    var q = 'update/?book=true&trade=' + bool + '&bookID=' + id;
+    var q = 'update/?book=true&trade=true&bookID=' + id;
 
     $http.post(url + q)
       .then(function(response) {
