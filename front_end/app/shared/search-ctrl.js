@@ -2,6 +2,7 @@ function SearchCtrl(BookService, User) {
 
   var vm = this;
   vm.results = null;
+  vm.bookAdded = null;
 
   User.getUser(function() {
     vm.user = User.info;
@@ -24,6 +25,7 @@ function SearchCtrl(BookService, User) {
     User.addBook(book,function() {
 
       vm.bookAdded = book.google.title;
+      vm.results = null;
 
     });
   };

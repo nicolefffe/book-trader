@@ -30,23 +30,15 @@ function ProfileCtrl(BookService, User) {
   };
 
   vm.removeBook = function(id) {
-
-    User.removeBook(id,function() {
-      BookService.removeFromDisplay(id,User.info.library,function(results) {
-        vm.library = results;
-      });
-    });
+    User.removeBook(id);
   };
 
-  vm.tradeable = function(id) {
-    var match = User.info.books.filter(function(element) {
-      return element.id === id;
-    });
-    return match[0].tradeable;
+  vm.tradeable = function(book) {
+    return book.available;
   };
 
-  vm.changeTrade = function(id) {
-    User.changeTrade(id);
+  vm.changeTrade = function(book) {
+    User.changeTrade(book);
   };
 
 };

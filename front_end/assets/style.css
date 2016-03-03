@@ -59,12 +59,12 @@ nav {
 .thumb {
     float: left;
     padding-right: 4vw;
-    padding-bottom: 4vh;
+    padding-bottom: 5vh;
 }
 
 .empty-thumb {
     width: 128px;
-    height: 200px;
+    height: 220px;
     font-size: 12vw;
     margin-right: 4vw;
     float: left;

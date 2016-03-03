@@ -67,7 +67,7 @@ function User($http) {
     }
   };
 
-  user.removeBook = function(id,callback) {
+  user.removeBook = function(id) {
     var q = 'book/update/?del=true&bookID=' + id;
     var match = user.info.library.filter(function(element) {
       return element !== id;
@@ -79,12 +79,8 @@ function User($http) {
       $http.post(url + q)
         .then(function(response) {
           user.info.books = response.data.books;
-          callback();
         });
     }
-
-    else { callback(); }
-
   };
 
   user.changeTrade = function(id) {

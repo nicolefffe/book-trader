@@ -3,39 +3,13 @@ doctype html
 html(lang='en', ng-app='book-app', ng-controller='SearchCtrl as search')
 
     include /app/shared/header.jade
-        script(type='text/javascript', src='/app/components/browse/browse-ctrl.js')
+    script(type='text/javascript', src='/app/components/browse/browse-ctrl.js')
 
     include /app/shared/nav.jade
 
     body(style='padding-top: 70px')
-        div.dialog(ng-if='search.bookAdded')
-            div.dialog-close
-                a(href='#' ng-click='search.closeDialog()') Close
-            div.dialog-text
-                {{ search.bookAdded }} has been added to your library!
-                br
-                br
-                i.fa.fa-bookmark
-                &nbsp;&nbsp;
-                a(href='#', ng-click='search.closeDialog()') Return to library
-        div.dialog(ng-if='search.results')
-            div.dialog-close
-                a(href='#' ng-click='search.closeDialog()') Close
-            div.results
-                div.book-display(ng-repeat='b in search.results')
-                    img.thumb(ng-if='b.google.isIMG' src='{{ b.google.img }}', alt='{{ b.google.title }}')
-                    span.empty-thumb(ng-if='b.google.isBlank')
-                        i.fa.fa-bookmark-o.bookmark
-                    b {{ b.google.title }}
-                    br
-                    {{ b.google.author }}
-                    br
-                    {{ b.google.date }}
-                    br
-                    br
-                    {{ b.google.description }}
-                    &nbsp;&nbsp;
-                    a(href='#' ng-click='search.addBook(b)') Add this book to my library
+        div.dialog(dialog-search-results)
+        div.dialog(dialog-add-book)
         main(ng-controller='BrowseCtrl as browse')
             h1.welcome Book Trade
                 div.center-info.input-group

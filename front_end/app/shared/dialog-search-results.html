@@ -1,0 +1,19 @@
+<div class='dialog-close'>
+    <a href='#' ng-click='search.closeDialog()'>Close</a>
+</div>
+<div class='results'>
+    <div class='book-display' ng-repeat='b in search.results'>
+        <img class='thumb' ng-if='b.google.isIMG' src='{{ b.google.img }}' alt='{{ b.google.title }}'>
+        <span class='empty-thumb' ng-if='b.google.isBlank'>
+            <i class='fa fa-bookmark-o bookmark'></i>
+        </span>
+        <b>{{ b.google.title }}</b>
+        <br>
+        {{ b.google.author }}
+        <br>
+        {{ b.google.date }}
+        <br>
+        <br>
+        {{ b.google.description }}  <a href='#' ng-click='search.addBook(b)'>Add this book to my library</a>
+    </div>
+</div>

@@ -56,7 +56,7 @@ module.exports = function() {
       }
       else {
         var match = doc.books.filter(function(element) {
-          return element.id === book;
+          return element.id === book.id;
         });
         if (match.length > 0) {
           match[0].available = !match[0].available;
