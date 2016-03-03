@@ -53,16 +53,16 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                             i.fa.fa-bookmark-o.bookmark
                         b {{ b.google.title }}
                         br
-                        {{ b.google.author }}
+                        | {{ b.google.author }}
                         br
-                        {{ b.google.date }}
-                        br
-                        br
-                        {{ b.google.description }}
+                        | {{ b.google.date }}
                         br
                         br
-                        button.btn.btn-default.btn-xs(ng-click='profile.removeBook(b.id)') Remove from library
-                        &nbsp;&nbsp;
+                        | {{ b.google.description }}
+                        br
+                        br
+                        button.btn.btn-default.btn-xs(remove-book ng-click='profile.removeBook(b.id)') Remove from library
+                        | &nbsp;&nbsp;
                         button.btn.btn-default.btn-xs(ng-if='profile.tradeable(b)' ng-click='profile.changeTrade(b)') Make unavailable for trade
                         button.btn.btn-default.btn-xs(ng-if='!profile.tradeable(b)' ng-click='profile.changeTrade(b)') Make available for trade
 

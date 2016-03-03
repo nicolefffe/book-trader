@@ -1,14 +1,14 @@
 function dialogAddBook() {
 
-  function link($scope,element) {
-    $scope.$watch('search.bookAdded', function(newVal) {
+  // Display element if a book has been added to a user's library
+
+  function link(scope,element) {
+    scope.$watch('search.bookAdded', function(newVal) {
       console.log(newVal);
       if (newVal == null) {
-        console.log('closing dialog');
         $(element).hide();
       }
       else {
-        console.log('showing dialog');
         $(element).show();
       }
     });
@@ -21,20 +21,21 @@ function dialogAddBook() {
     templateUrl: '/app/shared/dialog-add-book.html',
     scope: false,
     link: link
-    };
+  };
 };
+
 
 function dialogSearchResults() {
 
-  function link($scope,element) {
-    $scope.$watch('search.results',function(newVal) {
+  // Display element if search results are available
+
+  function link(scope,element) {
+    scope.$watch('search.results',function(newVal) {
       console.log(newVal);
       if (newVal == null) {
-        console.log('closing dialog');
         $(element).hide();
       }
       else {
-        console.log('showing dialog');
         $(element).show();
       }
     });
@@ -50,7 +51,27 @@ function dialogSearchResults() {
   };
 };
 
+function removeBook() {
+
+  // Remove container for individual book in profile library when child button is clicked
+
+  function link(scope,element) {
+    element.on('click', function() {
+      scope.$destroy();
+      element.parent().remove();
+    });
+  }
+
+  return {
+    restrict: 'A',
+    scope: {},
+    link: link
+  };
+
+};
+
 angular
 .module('book-app')
 .directive('dialogAddBook', dialogAddBook)
-.directive('dialogSearchResults', dialogSearchResults);
+.directive('dialogSearchResults', dialogSearchResults)
+.directive('removeBook', removeBook);
