@@ -14,21 +14,22 @@ html(lang='en', ng-app='book-app', ng-controller='SearchCtrl as search')
             h1.welcome Book Trade
                 h3.center-info.text-center
                     | Books available for trade
-                div.results
-                    div.book-display(ng-if(browse.allBooks), ng-repeat='b in allBooks')
-                        img.thumb(ng-if='b.isIMG' src='{{ b.img }}', alt='{{ b.title }}')
-                        span.empty-thumb(ng-if='b.isBlank')
+                div.browse
+                    span.browse-book(ng-if(browse.allBooks), ng-repeat='b in browse.allBooks')
+                        img.thumb(ng-if='b.book.google.isIMG' src='{{ b.book.google.img }}', alt='{{ b.book.google.title }}')
+                        span.empty-thumb(ng-if='b.book.google.isBlank')
                             i.fa.fa-bookmark-o.bookmark
-                        b {{ b.title }}
+                        b {{ b.book.google.title }}
                         br
-                        | {{ b.author }}
+                        | {{ b.book.google.author }}
                         br
-                        | {{ b.date }}
+                        | {{ b.book.google.date }}
                         br
                         br
-                        | {{ b.description }}
-                        | &nbsp;&nbsp;
-                        a(href='#' ng-click='browse.addBook(b.id,b.title)') Add this book to my library
-                        | &nbsp;&nbsp;
-                        a(href='#' ng-click='browse.requestTrade(b.id)') Request a trade
+                        | Owned by: {{ b.user }} in {{ b.location }}
+                        br
+                        br
+                        button.btn.btn-default.btn-xs(ng-click='browse.addBook(b.book)') Add this book to my library
+                        br
+                        button.btn.btn-default.btn-xs(ng-click='browse.requestTrade(b)') Request a trade
 

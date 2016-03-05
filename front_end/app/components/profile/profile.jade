@@ -11,7 +11,11 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
         div.dialog(dialog-search-results)
         div.dialog(dialog-add-book)
         main(ng-controller='ProfileCtrl as profile')
-            h1.welcome My Library
+            h1.welcome {{ profile.user.user }}'s library
+            h4.text-center
+                a(href='#library') my books
+                | &nbsp/&nbsp;
+                a(href+'#trades') my trades
             div.center-info
                 div.profile
                     span.sub-profile1
@@ -46,7 +50,7 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                             button.btn.btn-default(type='submit', ng-click='profile.cancelEdit()', style='margin-top: 2vh') Cancel
                 div.profile
                     button.btn.btn-default(type='submit', ng-show='!profile.editing', ng-click='profile.startEdit()') Edit
-            div.results
+            div.results#library
                     div.book-display(ng-repeat='b in profile.library')
                         img.thumb(ng-if='b.google.isIMG' src='{{ b.google.img }}', alt='{{ b.google.title }}')
                         span.empty-thumb(ng-if='b.google.isBlank')
@@ -63,7 +67,7 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                         br
                         button.btn.btn-default.btn-xs(remove-book ng-click='profile.removeBook(b.id)') Remove from library
                         | &nbsp;&nbsp;
-                        button.btn.btn-default.btn-xs(ng-if='profile.tradeable(b)' ng-click='profile.changeTrade(b)') Make unavailable for trade
-                        button.btn.btn-default.btn-xs(ng-if='!profile.tradeable(b)' ng-click='profile.changeTrade(b)') Make available for trade
+                        button.btn.btn-default.btn-xs(ng-show='b.available' ng-click='profile.changeTrade(b.id)') Open to trade
+                        button.btn.btn-default.btn-xs(ng-show='!b.available' ng-click='profile.changeTrade(b.id)') Closed to trade
 
 

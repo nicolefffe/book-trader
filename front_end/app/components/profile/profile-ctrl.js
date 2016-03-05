@@ -3,6 +3,7 @@ function ProfileCtrl(BookService, User) {
   var vm = this;
 
   User.getUser(function() {
+    // retrieve user object from User schema and assign books array in user object to vm.library
     vm.user = User.info;
     vm.library = User.info.books;
   });
@@ -37,8 +38,8 @@ function ProfileCtrl(BookService, User) {
     return book.available;
   };
 
-  vm.changeTrade = function(book) {
-    User.changeTrade(book);
+  vm.changeTrade = function(id) {
+    User.changeTrade(id);
   };
 
 };

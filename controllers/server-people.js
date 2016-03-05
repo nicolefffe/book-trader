@@ -3,6 +3,31 @@ var User = require('../models/users');
 
 module.exports = function() {
 
+  this.allBooks = function(callback) {
+    User.find({},'github.username address.city address.state address.country books', function(err,docs) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        var arr = [];
+
+        docs.forEach(function(element) {
+          for (var i = 0; i < element.books.length; i++) {
+            if (element.books[i].available) {
+              arr.push({
+                'book': element.books[i],
+                'user': element.github.username,
+                'location': element.address.city + ', ' + element.address.state + ' ' + element.address.country
+              });
+            }
+          }
+        });
+
+        callback(arr);
+      }
+    });
+  };
+
   this.addBook = function(user,bookObj,callback) {
     User.findOne({'github.username': user}, function(err,doc) {
       if (err) {
@@ -49,14 +74,14 @@ module.exports = function() {
     )
   };
 
-  this.tradeable = function(user,book,callback) {
+  this.tradeable = function(user,id,callback) {
     User.findOne({'github.username': user}, function(err,doc) {
       if (err) {
         console.log(err);
       }
       else {
         var match = doc.books.filter(function(element) {
-          return element.id === book.id;
+          return element.id === id;
         });
         if (match.length > 0) {
           match[0].available = !match[0].available;

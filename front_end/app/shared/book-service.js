@@ -2,7 +2,8 @@ function BookService($http) {
 
   this.search = function(search,callback) {
 
-    var url = 'http://127.0.0.1:8080/books/?type=search&q=';
+    var url = location.protocol + '//' + location.host;
+    url += '/books/?type=search&q=';
 
     var query = search;
     query = query.replace(/ /g,'+');
@@ -16,28 +17,15 @@ function BookService($http) {
     });
   };
 
-  this.getLibrary = function(arr,callback) {
+  this.browseBooks = function(callback) {
 
-    var library = arr;
-    var url = 'http://127.0.0.1:8080/books/?type=lib&q=';
+    var url = location.protocol + '//' + location.host;
+    url += '/books/browse';
 
-    library = library.join(',');
-
-    $http.get(url + library)
+    $http.get(url)
     .then(function(response) {
-        callback(response.data.books);
+      callback(response.data.books);
     });
-  };
-
-  this.removeFromDisplay = function(id,arr,callback) {
-
-    var library = arr;
-
-    var match = library.filter(function(element) {
-      return element.id !== id;
-    });
-
-    callback(match);
   };
 
 };

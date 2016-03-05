@@ -93,6 +93,13 @@ module.exports = function(app,passport) {
 
   });
 
+  app.route('/books/browse').
+    get(function(req,res) {
+      users.allBooks(function(results) {
+        res.json({books: results});
+      });
+  });
+
   app.route('/book/new').
     post(isLoggedIn, function(req,res) {
 
@@ -100,7 +107,7 @@ module.exports = function(app,passport) {
       var book = req.body;
 
       users.addBook(user,book,function(results) {
-        res.json(results);
+        res.json({'books': results});
       });
   });
 
@@ -119,7 +126,6 @@ module.exports = function(app,passport) {
     post(isLoggedIn, function(req,res) {
 
       var user = req.user.github.username;
-      var book = req.query.book;
       var trade = req.query.trade || null;
       var remove = req.query.del || null;
 

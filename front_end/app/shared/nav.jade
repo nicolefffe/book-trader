@@ -5,5 +5,8 @@ nav.navbar.navbar-default.navbar-fixed-top
                 input.form-control(type='text', placeholder='Search for a title', ng-model='search.search')
             button.btn.btn-default(type='submit' ng-click='search.getBooks()') Submit
         ul.nav.navbar-nav.navbar-right
+            li.navbar-text(style='font-size: 1.5em') hello, {{ search.user.user }}
+            li(style='font-size: 1.5em')
+                a(href='/profile') library
             li(style='font-size: 1.5em; padding-right: 10vw')
-                a(href='/profile') hello, {{ search.user.user }}
+                a(href='/') browse

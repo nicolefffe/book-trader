@@ -1,3 +1,7 @@
+nav a:link {
+    font-weight: bold;
+}
+
 body {
     font-family: 'Lato', sans-serif;
     background-image: url('/assets/img/bg.jpg');
@@ -17,16 +21,68 @@ nav {
     text-size: 100%;
 }
 
-.welcome {
-    text-align: center;
-    padding-top: 6vh;
-    padding-bottom: 6vh;
-    font-weight: bold;
+.address {
+    width: 100%;
+}
+
+.book-display {
+    overflow: auto;
+    padding-bottom: 4vh;
+    font-size: 1.2em;
+}
+
+.bookmark {
+    vertical-align: top;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.browse {
+    margin: 2vh 5vw 2vh 5vw;
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.browse-book {
+    width: 30vw;
+    margin: auto;
 }
 
 .center-info {
     margin: 2vh 10vw 2vh 10vw;
     padding-bottom: 10vh;
+}
+
+.dialog {
+    position: absolute;
+    width: 50vw;
+    top: 20vh;
+    left: 25vw;
+    background-color: white;
+    z-index: 2;
+}
+
+.dialog-close {
+    margin-top: 1vh;
+    margin-right: 2vh;
+    text-align: right;
+}
+
+.dialog-text {
+    margin: 4vh 5vw 10vh 5vw;
+    font-size: 1.8em;
+}
+
+.empty-thumb {
+    width: 128px;
+    height: 220px;
+    font-size: 12vw;
+    margin-right: 4vw;
+    float: left;
+}
+
+.prefix {
+    width: 12vw;
 }
 
 .profile {
@@ -44,14 +100,6 @@ nav {
     width: 50vw;
 }
 
-.prefix {
-    width: 12vw;
-}
-
-.address {
-    width: 100%;
-}
-
 .results {
     margin: 2vh 20% 2vh 20%;
 }
@@ -62,42 +110,9 @@ nav {
     padding-bottom: 5vh;
 }
 
-.empty-thumb {
-    width: 128px;
-    height: 220px;
-    font-size: 12vw;
-    margin-right: 4vw;
-    float: left;
-}
-
-.bookmark {
-    vertical-align: top;
-    margin-top: 0px;
-    padding-top: 0px;
-}
-
-.book-display {
-    overflow: auto;
+.welcome {
+    text-align: center;
+    padding-top: 6vh;
     padding-bottom: 4vh;
-    font-size: 1.2em;
-}
-
-.dialog {
-    position: absolute;
-    width: 50vw;
-    top: 30vh;
-    left: 25vw;
-    background-color: white;
-    z-index: 2;
-}
-
-.dialog-close {
-    margin-top: 1vh;
-    margin-right: 2vh;
-    text-align: right;
-}
-
-.dialog-text {
-    margin: 4vh 5vw 10vh 5vw;
-    font-size: 1.8em;
+    font-weight: bold;
 }

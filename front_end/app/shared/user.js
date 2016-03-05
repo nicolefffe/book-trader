@@ -2,7 +2,7 @@ function User($http) {
 
   var user = {};
 
-  var url = 'http://127.0.0.1:8080/';
+  var url = location.protocol + '//' + location.host;
 
   var setAddress = function(obj) {
     user.info.address.street = obj.street;
@@ -18,7 +18,7 @@ function User($http) {
 
   user.getUser = function(callback) {
 
-    $http.get(url + 'api/:id')
+    $http.get(url + '/api/:id')
       .then(function(response) {
 
         user.info.user = response.data.github.username;
@@ -37,7 +37,7 @@ function User($http) {
   };
 
   user.newAddress = function(addressObj) {
-    var q = 'address';
+    var q = '/address';
 
     $http.post(url + q, JSON.stringify(addressObj))
       .then(function(response) {
@@ -46,7 +46,7 @@ function User($http) {
   };
 
   user.addBook = function(book,callback) {
-    var q = 'book/new';
+    var q = '/book/new';
     var match = user.info.library.filter(function(element) {
       return element === book.id;
     });
@@ -68,7 +68,7 @@ function User($http) {
   };
 
   user.removeBook = function(id) {
-    var q = 'book/update/?del=true&bookID=' + id;
+    var q = '/book/update/?del=true&bookID=' + id;
     var match = user.info.library.filter(function(element) {
       return element !== id;
     });
@@ -84,7 +84,7 @@ function User($http) {
   };
 
   user.changeTrade = function(id) {
-    var q = 'update/?book=true&trade=true&bookID=' + id;
+    var q = '/book/update/?trade=true&bookID=' + id;
 
     $http.post(url + q)
       .then(function(response) {
