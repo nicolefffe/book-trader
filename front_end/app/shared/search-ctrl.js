@@ -1,13 +1,45 @@
 function SearchCtrl(BookService, User) {
 
   var vm = this;
+
   vm.results = null;
+  vm.allBooks = null;
+  vm.trading = null;
+  vm.titleAdded = null;
   vm.bookAdded = null;
+
 
   User.getUser(function() {
     // retrieve user object from User schema
     vm.user = User.info;
   });
+
+  vm.addBook = function(book) {
+
+    User.addBook(book,function() {
+
+      // setting results to null will hide the search results dialog element through the dialogSearchResults directive
+      vm.titleAdded = book.google.title;
+      vm.bookAdded = book;
+      vm.results = null;
+    });
+  };
+
+  vm.closeDialog = function() {
+
+    // setting these vars to null hides both dialog elements through dialogSearchResults & dialogAddBook directives
+    vm.results = null;
+    vm.bookAdded = null;
+  };
+
+  vm.getAllBooks = function() {
+
+    // because the profile page also uses SearchCtrl, we use a directive to call this function only when browsing books
+    BookService.browseBooks(function(results) {
+      vm.allBooks = results;
+      console.log(vm.allBooks);
+    });
+  };
 
   vm.getBooks = function() {
 
@@ -22,23 +54,6 @@ function SearchCtrl(BookService, User) {
       vm.results = results;
       vm.search = null;
     });
-  };
-
-  vm.addBook = function(book) {
-
-    User.addBook(book,function() {
-
-      // setting results to null will hide the search results dialog element through the dialogSearchResults directive
-      vm.bookAdded = book.google.title;
-      vm.results = null;
-    });
-  };
-
-  vm.closeDialog = function() {
-
-    // setting these vars to null hides both dialog elements through dialogSearchResults & dialogAddBook directives
-    vm.results = null;
-    vm.bookAdded = null;
   };
 
 };

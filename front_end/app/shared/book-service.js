@@ -3,7 +3,7 @@ function BookService($http) {
   this.search = function(search,callback) {
 
     var url = location.protocol + '//' + location.host;
-    url += '/books/?type=search&q=';
+    url += '/books/search?q=';
 
     var query = search;
     query = query.replace(/ /g,'+');

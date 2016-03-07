@@ -1,10 +1,29 @@
+function allBooks() {
+
+  // Only retrieve all books from database if this directive is used
+
+  function link(scope,element) {
+    scope.search.getAllBooks();
+  }
+
+  return {
+    restrict: 'A',
+    controller: 'SearchCtrl',
+    controllerAs: 'search',
+    scope: true,
+    bindToController: {
+      allBooks: '='
+    },
+    link: link
+  };
+};
+
 function dialogAddBook() {
 
   // Display element if a book has been added to a user's library
 
   function link(scope,element) {
     scope.$watch('search.bookAdded', function(newVal) {
-      console.log(newVal);
       if (newVal == null) {
         $(element).hide();
       }
@@ -24,14 +43,12 @@ function dialogAddBook() {
   };
 };
 
-
 function dialogSearchResults() {
 
   // Display element if search results are available
 
   function link(scope,element) {
     scope.$watch('search.results',function(newVal) {
-      console.log(newVal);
       if (newVal == null) {
         $(element).hide();
       }
@@ -67,11 +84,11 @@ function removeBook() {
     scope: {},
     link: link
   };
-
 };
 
 angular
 .module('book-app')
+.directive('allBooks', allBooks)
 .directive('dialogAddBook', dialogAddBook)
 .directive('dialogSearchResults', dialogSearchResults)
 .directive('removeBook', removeBook);

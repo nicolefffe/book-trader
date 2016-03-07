@@ -28,7 +28,7 @@ module.exports = function(app,passport) {
 
   app.route('/')
     .get(isLoggedIn, function(req,res) {
-      res.render(path.join('app/components/browse','browse'));
+      res.render('index');
     });
 
   app.route('/login')
@@ -61,53 +61,25 @@ module.exports = function(app,passport) {
         failureRedirect: '/login'
     }));
 
-  app.route('/books/').
+  app.route('/books/search').
     get(function(req,res) {
 
-      var kind = req.query.type;
+      var search = req.query.q;
 
-      if (kind === 'search') {
-        var search = req.query.q;
+      search = search.replace(/ /g,'+');
+      search = search.match(/[\w\+]/g);
+      search = search.join('');
+      search = search.replace(/\+$/,'');
 
-        search = search.replace(/ /g,'+');
-        search = search.match(/[\w\+]/g);
-        search = search.join('');
-        search = search.replace(/\+$/,'');
-
-        findBook.getTitle(search,function(results) {
-          res.json(results);
-        });
-      }
-
-      else if (kind === 'lib') {
-        var library = req.query.q;
-
-        library = library.match(/[\w,]/g);
-        library = library.join('');
-        library = library.split(',')
-
-        findBook.getLibrary(library,function(results) {
-          res.json(results);
-        });
-      }
-
+      findBook.getTitle(search,function(results) {
+        res.json(results);
+      });
   });
 
   app.route('/books/browse').
     get(function(req,res) {
       users.allBooks(function(results) {
         res.json({books: results});
-      });
-  });
-
-  app.route('/book/new').
-    post(isLoggedIn, function(req,res) {
-
-      var user = req.user.github.username;
-      var book = req.body;
-
-      users.addBook(user,book,function(results) {
-        res.json({'books': results});
       });
   });
 
@@ -119,6 +91,17 @@ module.exports = function(app,passport) {
 
       users.setAddress(user,address,function(results) {
         res.json(results);
+      });
+  });
+
+  app.route('/book/new').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      var book = req.body;
+
+      users.addBook(user,book,function(results) {
+        res.json({'books': results});
       });
   });
 

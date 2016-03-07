@@ -75,48 +75,4 @@ module.exports = function() {
     req.end();
   };
 
-  this.getLibrary = function(arr,callback) {
-
-    var books = [];
-    var completed = 0;
-
-    arr.forEach(function(book) {
-      var idPath = path + '/' + book + '?key=' + booksKey;
-
-      var req = https.request({
-          hostname: googleBooks,
-          path: idPath,
-          method: 'GET'
-        },function(results) {
-          var reply = '';
-
-          results.on('data',function(chunk) {
-            reply += chunk;
-          });
-
-          results.on('end',function() {
-            completed++;
-
-            var obj = JSON.parse(reply);
-
-            if (!obj) { }
-            else if (obj.hasOwnProperty('error')) {}
-            else {
-              books.push(formatBook(obj));
-            }
-
-            if (completed === arr.length) {
-              callback({'books': books});
-            }
-          });
-        });
-
-        req.on('error',function(err) {
-          console.log(err);
-        });
-        req.end();
-    });
-
-  };
-
 };

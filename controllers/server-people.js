@@ -11,13 +11,34 @@ module.exports = function() {
       else {
         var arr = [];
 
+        // compile all users' libraries into one array with only one instance of each book
+
         docs.forEach(function(element) {
           for (var i = 0; i < element.books.length; i++) {
-            if (element.books[i].available) {
+
+            var found = false;
+
+            arr.forEach(function(added) {
+
+              if (added.book.id === element.books[i].id) {
+                found = true;
+                if (element.books[i].available) {
+                  added.owners.push({
+                    'user': element.github.username,
+                    'location': element.address.city + ', ' + element.address.state + ' ' + element.address.country
+                  });
+                }
+              }
+
+            });
+
+            if (!found && element.books[i].available) {
               arr.push({
                 'book': element.books[i],
-                'user': element.github.username,
-                'location': element.address.city + ', ' + element.address.state + ' ' + element.address.country
+                'owners': [{
+                  'user': element.github.username,
+                  'location': element.address.city + ', ' + element.address.state + ' ' + element.address.country
+                }]
               });
             }
           }
@@ -100,6 +121,9 @@ module.exports = function() {
   };
 
   this.setAddress = function(user,address,callback) {
+
+    // function takes an address object (format defined in /models/users.js)
+
     User.findOne({'github.username': user}, function(err,doc) {
       if (err) {
         console.log(err);
