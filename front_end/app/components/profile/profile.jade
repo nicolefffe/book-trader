@@ -2,10 +2,10 @@ doctype html
 
 html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
 
-    include /app/shared/header.jade
+    include /app/shared/templates/header.jade
     script(type='text/javascript', src='/app/components/profile/profile-ctrl.js')
 
-    include /app/shared/nav.jade
+    include /app/shared/templates/nav.jade
 
     body(style='padding-top: 70px')
         div.dialog(dialog-search-results)

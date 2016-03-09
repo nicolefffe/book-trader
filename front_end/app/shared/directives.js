@@ -1,6 +1,6 @@
 function allBooks() {
 
-  // Only retrieve all books from database if this directive is used
+  // Wait until this directive is used to call the search controller's getAllBooks's function & fetch all tradeable books
 
   function link(scope,element) {
     scope.search.getAllBooks();
@@ -10,8 +10,9 @@ function allBooks() {
     restrict: 'A',
     controller: 'SearchCtrl',
     controllerAs: 'search',
-    scope: true,
+    scope: false,
     bindToController: true,
+    templateUrl: '/app/shared/templates/all-books.html',
     link: link
   };
 };
@@ -35,7 +36,8 @@ function dialogAddBook() {
     restrict: 'A',
     controller: 'SearchCtrl',
     controllerAs: 'search',
-    templateUrl: '/app/shared/dialog-add-book.html',
+    bindToController: true,
+    templateUrl: '/app/shared/templates/dialog-add-book.html',
     scope: false,
     link: link
   };
@@ -60,7 +62,8 @@ function dialogSearchResults() {
     restrict: 'A',
     controller: 'SearchCtrl',
     controllerAs: 'search',
-    templateUrl: '/app/shared/dialog-search-results.html',
+    bindToController: true,
+    templateUrl: '/app/shared/templates/dialog-search-results.html',
     scope: false,
     link: link
   };

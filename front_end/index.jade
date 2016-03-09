@@ -2,9 +2,9 @@ doctype html
 
 html(lang='en', ng-app='book-app', ng-controller='SearchCtrl as search')
 
-    include /app/shared/header.jade
+    include /app/shared/templates/header.jade
 
-    include /app/shared/nav.jade
+    include /app/shared/templates/nav.jade
 
     body(style='padding-top: 70px')
         div.dialog(dialog-search-results)
@@ -13,23 +13,4 @@ html(lang='en', ng-app='book-app', ng-controller='SearchCtrl as search')
         main
             h1.welcome books available for trade
             div.browse(all-books)
-                span.browse-book(ng-repeat='b in search.allBooks')
-                    img.thumb(ng-if='b.book.google.isIMG' src='{{ b.book.google.img }}', alt='{{ b.book.google.title }}')
-                    span.empty-thumb(ng-if='b.book.google.isBlank')
-                        i.fa.fa-bookmark-o.bookmark
-                    b {{ b.book.google.title }}
-                    br
-                    | {{ b.book.google.author }}
-                    br
-                    | {{ b.book.google.date }}
-                    br
-                    br
-                    | Owned by: {{ b.owners.length }} &nbsp;
-                    span(ng-if='b.owners.length > 1') members
-                    span(ng-if='b.owners.length === 1') member
-                    br
-                    br
-                    button.btn.btn-default.btn-xs(trade-options) Request a trade
-                    br
-                    button.btn.btn-default.btn-xs(ng-click='search.addBook(b.book)') I own this book
 
