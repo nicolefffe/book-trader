@@ -11,9 +11,7 @@ function allBooks() {
     controller: 'SearchCtrl',
     controllerAs: 'search',
     scope: true,
-    bindToController: {
-      allBooks: '='
-    },
+    bindToController: true,
     link: link
   };
 };

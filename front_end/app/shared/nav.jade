@@ -1,12 +1,15 @@
 nav.navbar.navbar-default.navbar-fixed-top
-    div.container-fluid
-        form.navbar-form.navbar-left(role='search', style='padding-left: 10vw')
-            div.form-group
+    div.nav-flex
+        div.nav-left
+            div.input-group
                 input.form-control(type='text', placeholder='Search for a title', ng-model='search.search')
-            button.btn.btn-default(type='submit' ng-click='search.getBooks()') Submit
-        ul.nav.navbar-nav.navbar-right
-            li.navbar-text(style='font-size: 1.5em') hello, {{ search.user.user }}
-            li(style='font-size: 1.5em')
+                span.input-group-btn
+                    button.btn.btn-default(type='submit' ng-click='search.getBooks()') Submit
+        div.nav-right
+            span.nav-link hello, {{ search.user.user }}
+            span.nav-link
                 a(href='/profile') library
-            li(style='font-size: 1.5em; padding-right: 10vw')
+            span.nav-link
                 a(href='/') browse
+            span.nav-link
+                a(href='/logout') logout

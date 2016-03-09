@@ -25,11 +25,11 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                         br
                         b Address:
                     span.sub-profile2
-                        {{ profile.user.user }}
+                        | {{ profile.user.user }}
                         br
-                        {{ profile.user.display }}
+                        | {{ profile.user.display }}
                         br
-                        span(ng-show='!profile.editing') {{ profile.user.address.street }}, {{ profile.user.address.city }}, {{ profile.user.address.state }} {{ profile.user.address.postal }}, {{ profile.user.address.country }}
+                        span(ng-show='!profile.editing') {{ profile.user.address.street }} {{ profile.user.address.city }} {{ profile.user.address.state }} {{ profile.user.address.postal }} {{ profile.user.address.country }}
                         span(ng-show='profile.editing')
                             div.input-group.address
                                 span.input-group-addon.prefix Street

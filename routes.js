@@ -77,8 +77,10 @@ module.exports = function(app,passport) {
   });
 
   app.route('/books/browse').
-    get(function(req,res) {
-      users.allBooks(function(results) {
+    get(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      users.allBooks(user,function(results) {
         res.json({books: results});
       });
   });

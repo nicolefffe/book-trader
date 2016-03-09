@@ -58,14 +58,22 @@ module.exports = function() {
 
           var books = [];
           var obj = JSON.parse(reply);
+          console.log(obj);
 
-          if (obj.items.length > 0) {
+          if (obj.totalItems === 0) {
+            books.push({
+              "id": null,
+              "error": 'No matches found'
+            });
+            callback({books: books});
+          }
+
+          else {
             obj.items.forEach(function(element) {
               books.push(formatBook(element));
             });
+            callback({books: books});
           }
-
-          callback({books: books});
         });
     });
 

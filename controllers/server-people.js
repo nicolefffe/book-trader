@@ -3,8 +3,8 @@ var User = require('../models/users');
 
 module.exports = function() {
 
-  this.allBooks = function(callback) {
-    User.find({},'github.username address.city address.state address.country books', function(err,docs) {
+  this.allBooks = function(user,callback) {
+    User.find({'github.username': {$ne: user}},'github.username address.city address.state address.country books', function(err,docs) {
       if (err) {
         console.log(err);
       }
@@ -44,7 +44,23 @@ module.exports = function() {
           }
         });
 
-        callback(arr);
+        User.findOne({'github.username': user}, 'books', function(err,doc) {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            arr = arr.filter(function(element) {
+              var found = false;
+              for (var i = 0; i < doc.books.length; i++) {
+                if (doc.books[i].id === element.book.id) {
+                  found = true;
+                }
+              }
+              return !found;
+            });
+          }
+          callback(arr);
+        });
       }
     });
   };

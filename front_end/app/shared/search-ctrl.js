@@ -52,6 +52,9 @@ function SearchCtrl(BookService, User) {
 
     BookService.search(query,function(results) {
       vm.results = results;
+      if (vm.results) {
+        console.log('no results found');
+      }
       vm.search = null;
     });
   };

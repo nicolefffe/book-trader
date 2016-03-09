@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 nav a:link {
     font-weight: bold;
 }
@@ -18,7 +22,7 @@ main {
 }
 
 nav {
-    text-size: 100%;
+    font-size: 100%;
 }
 
 .address {
@@ -45,6 +49,7 @@ nav {
 
 .browse-book {
     width: 30vw;
+    height: 40vh;
     margin: auto;
 }
 
@@ -81,6 +86,31 @@ nav {
     float: left;
 }
 
+.nav-flex {
+    display: inline-flex;
+    padding-top: 1vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    font-size: 1.5em;
+    width: 100vw;
+}
+
+.nav-left {
+    width: 25vw;
+}
+
+.nav-link {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vh;
+}
+
+.nav-right {
+    display: inline-flex;
+    justify-content: flex-end;
+    width: 75vw;
+}
+
 .prefix {
     width: 12vw;
 }
@@ -106,8 +136,8 @@ nav {
 
 .thumb {
     float: left;
-    padding-right: 4vw;
-    padding-bottom: 5vh;
+    margin-right: 4vw;
+    margin-bottom: 5vh;
 }
 
 .welcome {
