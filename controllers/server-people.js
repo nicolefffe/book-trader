@@ -44,6 +44,8 @@ module.exports = function() {
           }
         });
 
+        // remove any books that the logged-in user already has in their library
+
         User.findOne({'github.username': user}, 'books', function(err,doc) {
           if (err) {
             console.log(err);
@@ -80,7 +82,7 @@ module.exports = function() {
         }
 
         else {
-          doc.books.push({'id': bookObj.id, 'available': true, 'google': bookObj.google});
+          doc.books.push({'id': bookObj.id, 'available': true, 'borrower': [], 'google': bookObj.google});
           doc.save(function(err) {
             if (err) {
               console.log(err);
@@ -89,6 +91,56 @@ module.exports = function() {
           });
         }
       }
+    });
+  };
+
+  this.approveTrade = function(user,bookID,borrower,callback) {
+    User.findOne({'github.username': user}, 'books', function(err,doc) {
+      doc.books.forEach(function(element) {
+        if (element.id === bookID) {
+
+          element.available = false;
+          element.borrower = [borrower];
+
+          User.findOne({'github.username': borrower}, function(err,borrowerDoc) {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              borrowerDoc.borrowed.push(element);
+              borrowerDoc.save(function(err) {
+                if (err) {
+                  console.log(err);
+                }
+              });
+            }
+          });
+        }
+      });
+
+      doc.save(function(err) {
+        if (err) {
+          console.log(err);
+        }
+        callback();
+      });
+    })
+  };
+
+  this.requestTrade = function(requester,bookID,owner,callback) {
+    User.findOne({'github.username': owner}, 'books', function(err,doc) {
+      doc.books.forEach(function(element) {
+        console.log('owner book: ' + element.id + ', requested book: ' + bookID);
+        if (element.id === bookID && element.available) {
+          element.borrower.push(requester);
+        }
+      });
+      doc.save(function(err) {
+        if (err) {
+          console.log(err);
+        }
+        callback();
+      });
     });
   };
 
@@ -104,8 +156,8 @@ module.exports = function() {
         User.findOne({'github.username': user}, function(err,doc) {
           if (err) {
             console.log(err);
-            callback(doc);
           }
+          callback(doc);
         });
       }
     )

@@ -16,6 +16,13 @@ function User($http) {
   user.info.address = {};
   user.info.library = [];
 
+  user.approveTrade = function(obj,callback) {
+    $http.post(url + '/book/trade/approve',JSON.stringify(obj))
+      .then(function(response) {
+        callback();
+    });
+  };
+
   user.getUser = function(callback) {
 
     $http.get(url + '/api/:id')

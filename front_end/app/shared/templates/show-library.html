@@ -1,0 +1,29 @@
+<div class='book-display' ng-repeat='b in profile.library'>
+  <span class='thumb'>
+    <img class='img-responsive' ng-if='b.google.isIMG' src='{{ b.google.img }}' alt='{{ b.google.title }}'>
+    <span class='empty-thumb' ng-if='b.google.isBlank'>
+      <i class='fa fa-bookmark-o bookmark'></i>
+    </span>
+  </span>
+
+  <p class='book-info'>
+    <b>{{ b.google.title }}</b>
+    <br>
+    {{ b.google.author }}
+    <br>
+    {{ b.google.date }}
+    <br><br>
+    <button class='btn btn-default btn-xs' remove-book ng-click='profile.removeBook(b.id)'>
+      Remove from library
+    </button>
+    <button class='btn btn-default btn-xs' ng-show='b.available' ng-click='profile.changeTrade(b.id)'>
+      Open to trade
+    </button>
+    <button class='btn btn-default btn-xs' ng-show='!b.available' ng-click='profile.changeTrade(b.id)'>
+      Closed to trade
+    </button>
+    <button class='btn btn-default btn-xs' ng-show='b.borrower.length > 0 && b.available' ng-click='profile.reviewTrade(b)'>
+      Trade requested!
+    </button>
+  </p>
+</div>

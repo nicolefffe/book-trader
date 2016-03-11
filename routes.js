@@ -107,6 +107,30 @@ module.exports = function(app,passport) {
       });
   });
 
+  app.route('/book/trade/approve').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      var book = req.body.book;
+      var borrower = req.body.borrower;
+
+      users.approveTrade(user,book,borrower,function() {
+        res.json({'status': 'success'});
+      });
+  });
+
+  app.route('/book/trade/request').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      var book = req.body.book;
+      var owner = req.body.owner;
+
+      users.requestTrade(user,book,owner,function() {
+        res.json({'status': 'success'});
+      });
+  });
+
   app.route('/book/update').
     post(isLoggedIn, function(req,res) {
 

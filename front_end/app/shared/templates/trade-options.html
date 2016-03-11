@@ -1,0 +1,30 @@
+<div class='dialog-close'>
+  <a href='#' ng-click='search.closeDialog()'>Close</a>
+</div>
+<div class='results'>
+  <div class='book-display'>
+    <img class='thumb' ng-if='search.trading.book.google.isIMG' src='{{ search.trading.book.google.img }}' alt='{{ search.trading.book.google.title }}'>
+    <span class='empty-thumb' ng-if='search.trading.book.google.isBlank'>
+      <i class='fa fa-bookmark-o bookmark'></i>
+    </span>
+      <b>{{ search.trading.book.google.title }}</b>
+      <br>
+      {{ search.trading.book.google.author }}
+      <br>
+      {{ search.trading.book.google.date }}
+      <br>
+      <br>
+      {{ search.trading.book.google.description }}
+      <br>
+      <br>
+  </div>
+
+  <div style='font-size: 1.4em'>
+    <b>Available from:</b>
+    <div class='owner' ng-repeat='o in search.trading.owners'>
+      <button class='btn btn-default' ng-click='search.makeTrade(search.trading.book.id,o.user)'>
+        {{ o.location }}
+      </button>
+    </div>
+  </div>
+</div>

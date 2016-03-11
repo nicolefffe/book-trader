@@ -30,6 +30,12 @@ function SearchCtrl(BookService, User) {
     // setting these vars to null hides both dialog elements through dialogSearchResults & dialogAddBook directives
     vm.results = null;
     vm.bookAdded = null;
+    vm.trading = null;
+  };
+
+  vm.findTrade = function(book) {
+    console.log('attempting trade for ' + book.book.id)
+    vm.trading = book;
   };
 
   vm.getAllBooks = function() {
@@ -56,6 +62,12 @@ function SearchCtrl(BookService, User) {
         console.log('no results found');
       }
       vm.search = null;
+    });
+  };
+
+  vm.makeTrade = function(id,owner) {
+    BookService.requestTrade({'book': id, 'owner': owner},function() {
+
     });
   };
 

@@ -3,18 +3,21 @@
 </div>
 <div class='results'>
     <div class='book-display' ng-if='search.results[0].id' ng-repeat='b in search.results'>
-        <img class='thumb' ng-if='b.google.isIMG' src='{{ b.google.img }}' alt='{{ b.google.title }}'>
+      <span class='thumb'>
+        <img class='img-responsive' ng-if='b.google.isIMG' src='{{ b.google.img }}' alt='{{ b.google.title }}'>
         <span class='empty-thumb' ng-if='b.google.isBlank'>
-            <i class='fa fa-bookmark-o bookmark'></i>
+          <i class='fa fa-bookmark-o bookmark'></i>
         </span>
-        <b>{{ b.google.title }}</b>
-        <br>
-        {{ b.google.author }}
-        <br>
-        {{ b.google.date }}
-        <br>
-        <br>
-        {{ b.google.description }}  <a href='#' ng-click='search.addBook(b)'>Add this book to my library</a>
+      </span>
+
+      <b>{{ b.google.title }}</b>
+      <br>
+      {{ b.google.author }}
+      <br>
+      {{ b.google.date }}
+      <br>
+      <br>
+      {{ b.google.description }}  <a href='#' ng-click='search.addBook(b)'>Add this book to my library</a>
     </div>
     <div class='book-display' ng-if='!search.results[0].id' style='font-size: 1.6em; padding-bottom: 5vh'>
         No matches found.

@@ -28,6 +28,17 @@ function BookService($http) {
     });
   };
 
+  this.requestTrade = function(tradeObj) {
+
+    var url = location.protocol + '//' + location.host;
+    url += '/book/trade';
+
+    $http.post(url,JSON.stringify(tradeObj))
+      .then(function(response) {
+      console.log('trade requested');
+    });
+  };
+
 };
 
 angular

@@ -10,8 +10,8 @@ module.exports = function() {
 
   var formatBook = function(book) {
     var d = book.volumeInfo.description || ' ';
-    if (d.length > 200) {
-        d = d.slice(0,190) + '...';
+    if (d.length > 150) {
+        d = d.slice(0,145) + '...';
     }
     d = d.replace(/<[bpri\/]*>/g,'');
 

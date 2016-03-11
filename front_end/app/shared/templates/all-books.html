@@ -1,24 +1,30 @@
 <span class='browse-book' ng-repeat='b in search.allBooks'>
-  <img class='thumb' ng-if='b.book.google.isIMG' src='{{ b.book.google.img }}' alt='{{ b.book.google.title }}'>
-  <span class='empty-thumb' ng-if='b.book.google.isBlank'>
-    <i class='fa fa-bookmark-o bookmark'></i>
+
+  <span class='thumb'>
+    <img class='img-responsive' ng-if='b.book.google.isIMG' src='{{ b.book.google.img }}' alt='{{ b.book.google.title }}'>
+    <span class='empty-thumb' ng-if='b.book.google.isBlank'>
+      <i class='fa fa-bookmark-o bookmark'></i>
+    </span>
   </span>
-  <b>{{ b.book.google.title }}</b>
-  <br>
-  {{ b.book.google.author }}
-  <br>
-  {{ b.book.google.date }}
-  <br>
-  <br>
-  Owned by: {{ b.owners.length }}
+
+  <p class='book-info'>
+    <b>{{ b.book.google.title }}</b>
+    <br>
+    {{ b.book.google.author }}
+    <br>
+    {{ b.book.google.date }}
+    <br>
+    <br>
+    Owned by: {{ b.owners.length }}
     <span ng-if='b.owners.length > 1'> members</span>
     <span ng-if='b.owners.length === 1'> member</span>
-  <br>
-  <br>
-  <button class='btn btn-default btn-xs' ng-click='search.findTrade(b)'>
-    Request a trade
-  </button>
-  <button class='btn btn-default btn-xs' ng-click='search.addBook(b.book)'>
-    I own this book
-  </button>
+    <br><br>
+    <button class='btn btn-default btn-xs' ng-click='search.findTrade(b)'>
+      Request a trade
+    </button>
+    <br>
+    <button class='btn btn-default btn-xs' ng-click='search.addBook(b.book)'>
+      I own this book
+    </button>
+  </p>
 </span>

@@ -30,9 +30,13 @@ nav {
 }
 
 .book-display {
-    overflow: auto;
-    padding-bottom: 4vh;
+    margin-bottom: 6vh;
     font-size: 1.2em;
+    height: 35vh;
+}
+
+.book-info {
+
 }
 
 .bookmark {
@@ -48,7 +52,7 @@ nav {
 }
 
 .browse-book {
-    width: 30vw;
+    width: 35vw;
     height: 40vh;
     margin: auto;
 }
@@ -79,8 +83,6 @@ nav {
 }
 
 .empty-thumb {
-    width: 128px;
-    height: 220px;
     font-size: 12vw;
     margin-right: 4vw;
     float: left;
@@ -111,6 +113,10 @@ nav {
     width: 75vw;
 }
 
+.owner {
+    margin-top: 1vh;
+}
+
 .prefix {
     width: 12vw;
 }
@@ -123,7 +129,7 @@ nav {
 }
 
 .sub-profile1 {
-    width: 10vw;
+    width: 12vw;
 }
 
 .sub-profile2 {
@@ -136,8 +142,10 @@ nav {
 
 .thumb {
     float: left;
+    width: 10vw;
+    height: 12vw;
     margin-right: 4vw;
-    margin-bottom: 5vh;
+    margin-bottom: 10vh;
 }
 
 .welcome {

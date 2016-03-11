@@ -1,0 +1,28 @@
+<div class='dialog-close'>
+  <a href='#' ng-click='profile.trading = null'>Close</a>
+</div>
+
+<div class='results'>
+  <div class='book-display'>
+    <img class='thumb' ng-if='profile.trading.google.isIMG' src='{{ profile.trading.google.img }}' alt='{{ profile.trading.google.title }}'>
+    <span class='empty-thumb' ng-if='profile.trading.google.isBlank'>
+      <i class='fa fa-bookmark-o bookmark'></i>
+    </span>
+      <b>{{ profile.trading.google.title }}</b>
+      <br>
+      {{ profile.trading.google.author }}
+      <br>
+      {{ profile.trading.google.date }}
+      <br>
+      <br>
+    <div style='font-size: 1.4em; clear: both'>
+      <b>Trade requested from:</b>
+      <div class='owner' ng-repeat='b in profile.trading.borrower'>
+        <button class='btn btn-default' ng-click='profile.approveTrade(profile.trading.book.id,b)'>
+          {{ b }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -49,6 +49,7 @@ function dialogSearchResults() {
 
   function link(scope,element) {
     scope.$watch('search.results',function(newVal) {
+      console.log(newVal);
       if (newVal == null) {
         $(element).hide();
       }
@@ -76,7 +77,7 @@ function removeBook() {
   function link(scope,element) {
     element.on('click', function() {
       scope.$destroy();
-      element.parent().remove();
+      element.parent().parent().remove();
     });
   }
 
@@ -87,9 +88,78 @@ function removeBook() {
   };
 };
 
+function reviewTrade() {
+
+  function link(scope,element) {
+    scope.$watch('profile.trading',function(newVal) {
+      if (newVal == null) {
+        $(element).hide();
+      }
+      else {
+        $(element).show();
+      }
+    });
+  }
+
+  return {
+    restrict: 'A',
+    controller: 'ProfileCtrl',
+    controllerAs: 'profile',
+    bindToController: true,
+    templateUrl: '/app/shared/templates/review-trade.html',
+    scope: false,
+    link: link
+  };
+};
+
+function showLibrary() {
+
+  function link(scope,element) {
+
+  }
+
+  return {
+    restrict: 'A',
+    controller: 'ProfileCtrl',
+    controllerAs: 'profile',
+    bindToController: {
+      library: '='
+    },
+    templateUrl: '/app/shared/templates/show-library.html',
+    link: link
+  };
+};
+
+function tradeOptions() {
+
+  function link(scope,element) {
+    scope.$watch('search.trading',function(newVal) {
+      if (newVal == null) {
+        $(element).hide();
+      }
+      else {
+        $(element).show();
+      }
+    });
+  }
+
+  return {
+    restrict: 'A',
+    controller: 'SearchCtrl',
+    controllerAs: 'search',
+    bindToController: true,
+    templateUrl: '/app/shared/templates/trade-options.html',
+    scope: false,
+    link: link
+  };
+};
+
 angular
 .module('book-app')
 .directive('allBooks', allBooks)
 .directive('dialogAddBook', dialogAddBook)
 .directive('dialogSearchResults', dialogSearchResults)
-.directive('removeBook', removeBook);
+.directive('removeBook', removeBook)
+.directive('reviewTrade', reviewTrade)
+.directive('showLibrary', showLibrary)
+.directive('tradeOptions', tradeOptions)

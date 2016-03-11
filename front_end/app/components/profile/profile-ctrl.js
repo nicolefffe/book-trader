@@ -1,6 +1,8 @@
 function ProfileCtrl(BookService, User) {
 
   var vm = this;
+  vm.editing = false;
+  vm.trading = null;
 
   User.getUser(function() {
     // retrieve user object from User schema and assign books array in user object to vm.library
@@ -8,10 +10,18 @@ function ProfileCtrl(BookService, User) {
     vm.library = User.info.books;
   });
 
-  vm.editing = false;
+  vm.approveTrade = function(id,borrower) {
+    User.approveTrade({'id': id, 'borrower': borrower},function() {
+      vm.trading = null;
+    });
+  };
 
-  vm.startEdit = function() {
-    vm.editing = true;
+  vm.cancelEdit = function() {
+    vm.editing = false;
+  };
+
+  vm.changeTrade = function(id) {
+    User.changeTrade(id);
   };
 
   vm.finishEdit = function() {
@@ -22,11 +32,6 @@ function ProfileCtrl(BookService, User) {
       'postal': vm.postal,
       'country': vm.country
     });
-
-    vm.editing = false;
-  };
-
-  vm.cancelEdit = function() {
     vm.editing = false;
   };
 
@@ -34,12 +39,13 @@ function ProfileCtrl(BookService, User) {
     User.removeBook(id);
   };
 
-  vm.tradeable = function(book) {
-    return book.available;
+  vm.reviewTrade = function(book) {
+    vm.trading = book;
+    console.log('attempting trade for: ' + JSON.stringify(vm.trading));
   };
 
-  vm.changeTrade = function(id) {
-    User.changeTrade(id);
+  vm.startEdit = function() {
+    vm.editing = true;
   };
 
 };
