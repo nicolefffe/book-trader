@@ -179,6 +179,37 @@ module.exports = function() {
     )
   };
 
+  this.returnTrade = function(requester,bookID,owner,callback) {
+    User.findOne({'github.username': owner}, 'books', function(err,doc) {
+      doc.books.forEach(function(element) {
+        console.log('owner book: ' + element.id + ', returning book: ' + bookID);
+        if (element.id === bookID && element.borrower.indexOf(requester) >= 0) {
+          element.borrower = [];
+          element.available = true;
+        }
+      });
+      doc.save(function(err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+
+    User.findOne({'github.username': requester}, 'borrowed', function(err,doc) {
+      doc.borrowed = doc.borrowed.filter(function(element) {
+        return element.id != bookID;
+      });
+      doc.save(function(err) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          callback();
+        }
+      });
+    });
+  };
+
   this.tradeable = function(user,id,callback) {
     User.findOne({'github.username': user}, function(err,doc) {
       if (err) {

@@ -40,6 +40,19 @@ function BookService($http) {
     });
   };
 
+  this.returnTrade = function(tradeObj,callback) {
+
+    var url = location.protocol + '//' + location.host;
+    url += '/book/trade/return';
+
+    $http.post(url,JSON.stringify(tradeObj))
+      .then(function(response) {
+        console.log('trade returned');
+        callback();
+      });
+
+  };
+
 };
 
 angular

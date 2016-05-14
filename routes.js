@@ -134,6 +134,18 @@ module.exports = function(app,passport) {
       });
   });
 
+  app.route('/book/trade/return').
+    post(isLoggedIn, function(req,res) {
+
+      var user = req.user.github.username;
+      var book = req.body.book;
+      var owner = req.body.owner;
+
+      users.returnTrade(user,book,owner,function() {
+        res.json({'status': 'success'});
+      });
+  });
+
   app.route('/book/update').
     post(isLoggedIn, function(req,res) {
 

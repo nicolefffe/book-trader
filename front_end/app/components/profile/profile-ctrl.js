@@ -14,8 +14,18 @@ function ProfileCtrl(BookService, User) {
   vm.decideTrade = function(book,borrower,approve) {
     User.decideTrade({'id': book.id, 'borrower': borrower, 'approve': approve},function() {
       vm.library = User.info.books;
-      if (approve || book.borrower.length == 0) {
+      if (approve) {
+        book.borrower = [borrower];
+        book.available = false;
         vm.trading = null;
+      }
+      else {
+        book.borrower = book.borrower.filter(function(element) {
+          return element != borrower;
+        });
+        if (book.borrower.length == 0) {
+          vm.trading = null;
+        }
       }
     });
   };
@@ -45,6 +55,13 @@ function ProfileCtrl(BookService, User) {
   vm.removeBook = function(id) {
     User.removeBook(id);
     vm.library = User.info.books;
+  };
+
+  vm.returnTrade = function(book) {
+    BookService.returnTrade({'book': book.id, 'owner': book.owner}, function() {
+      vm.borrowed = User.info.borrowed;
+      book = null;
+    })
   };
 
   vm.reviewTrade = function(book) {
