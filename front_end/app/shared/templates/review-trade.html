@@ -13,16 +13,17 @@
       {{ profile.trading.google.author }}
       <br>
       {{ profile.trading.google.date }}
-      <br>
-      <br>
-    <div style='font-size: 1.4em; clear: both'>
-      <b>Trade requested from:</b>
+  </div>
+  <div class="trade-review">
+      <b>Requests:</b>
       <div class='owner' ng-repeat='b in profile.trading.borrower'>
-        <button class='btn btn-default' ng-click='profile.approveTrade(profile.trading.book.id,b)'>
-          {{ b }}
+        <span>Trade with {{ b }}? </span>
+        <button class='btn btn-default' ng-click='profile.decideTrade(profile.trading,b,true)'>
+          Yes
+        </button>
+        <button class='btn btn-default' ng-click='profile.decideTrade(profile.trading,b,false)'>
+          No
         </button>
       </div>
-    </div>
-
   </div>
 </div>

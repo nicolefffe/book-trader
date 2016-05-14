@@ -8,6 +8,7 @@ var Book = new Schema(
     id: String,
     available: Boolean,
     borrower: [String],
+    owner: String,
     google: {
       title: String,
       author: String,

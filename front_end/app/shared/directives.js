@@ -112,6 +112,24 @@ function reviewTrade() {
   };
 };
 
+function showBorrowed() {
+
+  function link(scope,element) {
+
+  }
+
+  return {
+    restrict: 'A',
+    controller: 'ProfileCtrl',
+    controllerAs: 'profile',
+    bindToController: {
+      borrowed: '='
+    },
+    templateUrl: '/app/shared/templates/show-borrowed.html',
+    link: link
+  };
+};
+
 function showLibrary() {
 
   function link(scope,element) {
@@ -134,6 +152,7 @@ function tradeOptions() {
 
   function link(scope,element) {
     scope.$watch('search.trading',function(newVal) {
+      console.log("watching search.trading, which is now " + scope.search.trading)
       if (newVal == null) {
         $(element).hide();
       }
@@ -161,5 +180,6 @@ angular
 .directive('dialogSearchResults', dialogSearchResults)
 .directive('removeBook', removeBook)
 .directive('reviewTrade', reviewTrade)
+.directive('showBorrowed', showBorrowed)
 .directive('showLibrary', showLibrary)
 .directive('tradeOptions', tradeOptions)

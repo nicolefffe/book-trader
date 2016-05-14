@@ -67,7 +67,7 @@ function SearchCtrl(BookService, User) {
 
   vm.makeTrade = function(id,owner) {
     BookService.requestTrade({'book': id, 'owner': owner},function() {
-
+      vm.trading = null;
     });
   };
 

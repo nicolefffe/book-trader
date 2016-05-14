@@ -32,7 +32,7 @@ nav {
 .book-display {
     margin-bottom: 6vh;
     font-size: 1.2em;
-    height: 35vh;
+    height: 30vh;
 }
 
 .book-info {
@@ -146,6 +146,14 @@ nav {
     height: 12vw;
     margin-right: 4vw;
     margin-bottom: 10vh;
+}
+
+.trade-review {
+  clear: both;
+  margin-bottom: 6vh;
+  font-size: 1.4em;
+  height: 20vh;
+
 }
 
 .welcome {

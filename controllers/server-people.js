@@ -82,7 +82,7 @@ module.exports = function() {
         }
 
         else {
-          doc.books.push({'id': bookObj.id, 'available': true, 'borrower': [], 'google': bookObj.google});
+          doc.books.push({'id': bookObj.id, 'available': true, 'borrower': [], 'owner': user, 'google': bookObj.google});
           doc.save(function(err) {
             if (err) {
               console.log(err);
@@ -94,35 +94,51 @@ module.exports = function() {
     });
   };
 
-  this.approveTrade = function(user,bookID,borrower,callback) {
+  this.decideTrade = function(user,bookID,borrower,approve,callback) {
     User.findOne({'github.username': user}, 'books', function(err,doc) {
       doc.books.forEach(function(element) {
         if (element.id === bookID) {
 
-          element.available = false;
-          element.borrower = [borrower];
+          if (approve) {
+            element.available = false;
+            element.borrower = [borrower];
 
-          User.findOne({'github.username': borrower}, function(err,borrowerDoc) {
-            if (err) {
-              console.log(err);
-            }
-            else {
-              borrowerDoc.borrowed.push(element);
-              borrowerDoc.save(function(err) {
-                if (err) {
-                  console.log(err);
-                }
-              });
-            }
-          });
+            User.findOne({'github.username': borrower}, function(err,borrowerDoc) {
+              if (err) {
+                console.log(err);
+              }
+              else {
+                borrowerDoc.borrowed.push(element);
+                borrowerDoc.save(function(err) {
+                  if (err) {
+                    console.log(err);
+                  }
+                  else {
+                    doc.save(function(err) {
+                      if (err) {
+                        console.log(err);
+                      }
+                      callback();
+                    });
+                  }
+                });
+              }
+            });
+          }
+          else {
+            element.borrower = element.borrower.filter(function(b) {
+              return b != borrower;
+            });
+            doc.save(function(err) {
+              if (err) {
+                console.log(err);
+              }
+              else {
+                callback();
+              }
+            });
+          }
         }
-      });
-
-      doc.save(function(err) {
-        if (err) {
-          console.log(err);
-        }
-        callback();
       });
     })
   };
@@ -131,7 +147,7 @@ module.exports = function() {
     User.findOne({'github.username': owner}, 'books', function(err,doc) {
       doc.books.forEach(function(element) {
         console.log('owner book: ' + element.id + ', requested book: ' + bookID);
-        if (element.id === bookID && element.available) {
+        if (element.id === bookID && element.available && element.borrower.indexOf(requester) == -1) {
           element.borrower.push(requester);
         }
       });

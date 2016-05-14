@@ -107,14 +107,17 @@ module.exports = function(app,passport) {
       });
   });
 
-  app.route('/book/trade/approve').
+  app.route('/book/trade/decide').
     post(isLoggedIn, function(req,res) {
 
       var user = req.user.github.username;
-      var book = req.body.book;
+      var book = req.body.id;
       var borrower = req.body.borrower;
+      var approve = req.body.approve;
 
-      users.approveTrade(user,book,borrower,function() {
+      console.log("deciding trade: " + user + ", " + book + ", " + borrower + ", " + approve);
+
+      users.decideTrade(user,book,borrower,approve,function() {
         res.json({'status': 'success'});
       });
   });

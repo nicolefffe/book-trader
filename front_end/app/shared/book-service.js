@@ -28,14 +28,15 @@ function BookService($http) {
     });
   };
 
-  this.requestTrade = function(tradeObj) {
+  this.requestTrade = function(tradeObj,callback) {
 
     var url = location.protocol + '//' + location.host;
-    url += '/book/trade';
+    url += '/book/trade/request';
 
     $http.post(url,JSON.stringify(tradeObj))
       .then(function(response) {
       console.log('trade requested');
+      callback();
     });
   };
 

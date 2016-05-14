@@ -1,0 +1,21 @@
+<h4 style='text-align: center; margin-bottom: 4vh' ng-show='profile.borrowed.length > 0'>my trades</h4>
+<div class='book-display' ng-repeat='b in profile.borrowed'>
+  <span class='thumb'>
+    <img class='img-responsive' ng-if='b.google.isIMG' src='{{ b.google.img }}' alt='{{ b.google.title }}'>
+    <span class='empty-thumb' ng-if='b.google.isBlank'>
+      <i class='fa fa-bookmark-o bookmark'></i>
+    </span>
+  </span>
+
+  <p class='book-info'>
+    <b>{{ b.google.title }}</b>
+    <br>
+    {{ b.google.author }}
+    <br>
+    {{ b.google.date }}
+    <br><br>
+    <button class='btn btn-default btn-xs' ng-click=''>
+      Return to owner
+    </button>
+  </p>
+</div>
