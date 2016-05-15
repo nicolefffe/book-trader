@@ -51,5 +51,7 @@ html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
                             button.btn.btn-default(type='submit', ng-click='profile.cancelEdit()', style='margin-top: 2vh') Cancel
                 div.profile
                     button.btn.btn-default(type='submit', ng-show='!profile.editing', ng-click='profile.startEdit()') Edit
+            h4(style='text-align: center; margin-bottom: 4vh' ng-show='profile.library.length > 0') my library
             div#library.results(show-library library='profile.library')
+            h4(style='text-align: center; margin-bottom: 4vh' ng-show='profile.borrowed.length > 0') my trades
             div#trades.results(show-borrowed borrowed='profile.borrowed')
