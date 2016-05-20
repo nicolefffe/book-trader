@@ -49,6 +49,10 @@ function SearchCtrl(BookService, User) {
 
   vm.getBooks = function() {
 
+    if (vm.search == null) {
+      return;
+    }
+
     // strip non-word chars (except spaces) from search query
     var query = vm.search.match(/[\w ]/g);
     query = query.join('');
