@@ -1,0 +1,15 @@
+nav.navbar.navbar-default.navbar-fixed-top
+    div.nav-flex
+        div.nav-left
+            div.input-group
+                input.form-control(type='text', placeholder='Search for a title', ng-model='search.search')
+                span.input-group-btn
+                    button.btn.btn-default(type='submit' ng-click='search.getBooks()') Submit
+        div.nav-right
+            span.nav-link hello, {{ search.user.user }}
+            span.nav-link
+                a(href='/profile') library
+            span.nav-link
+                a(href='/') browse
+            span.nav-link
+                a(href='/logout') logout

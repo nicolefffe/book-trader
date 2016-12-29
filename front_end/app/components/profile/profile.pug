@@ -1,0 +1,57 @@
+doctype html
+
+html(lang='en',ng-app='book-app', ng-controller='SearchCtrl as search')
+
+    include /app/shared/templates/header.pug
+    script(type='text/javascript', src='/app/components/profile/profile-ctrl.js')
+
+    include /app/shared/templates/nav.pug
+
+    body(style='padding-top: 70px' ng-controller='ProfileCtrl as profile')
+        div.dialog(dialog-search-results)
+        div.dialog(dialog-add-book)
+        div.dialog(review-trade)
+        main
+            h1.welcome {{ profile.user.user }}'s library
+            h4.text-center
+                a(href='#library') my books
+                | &nbsp/&nbsp;
+                a(href='#trades') my trades
+            div.center-info
+                div.profile
+                    span.sub-profile1
+                        b Username:
+                        br
+                        b Full name:
+                        br
+                        b Address:
+                    span.sub-profile2
+                        | {{ profile.user.user }}
+                        br
+                        | {{ profile.user.display }}
+                        br
+                        span(ng-show='!profile.editing') {{ profile.user.address.street }} {{ profile.user.address.city }} {{ profile.user.address.state }} {{ profile.user.address.postal }} {{ profile.user.address.country }}
+                        span(ng-show='profile.editing')
+                            div.input-group.address
+                                span.input-group-addon.prefix Street
+                                input.form-control(type='text', ng-model='profile.street' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix City
+                                input.form-control(type='text', ng-model='profile.city' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix State
+                                input.form-control(type='text', ng-model='profile.state' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix Postal Code
+                                input.form-control(type='text', ng-model='profile.postal' required)
+                            div.input-group.address
+                                span.input-group-addon.prefix Country
+                                input.form-control(type='text', ng-model='profile.country' required)
+                            button.btn.btn-default(type='submit', ng-click='profile.finishEdit()', style='margin-top: 2vh') Submit
+                            button.btn.btn-default(type='submit', ng-click='profile.cancelEdit()', style='margin-top: 2vh') Cancel
+                div.profile
+                    button.btn.btn-default(type='submit', ng-show='!profile.editing', ng-click='profile.startEdit()') Edit
+            h4(style='text-align: center; margin-bottom: 4vh' ng-show='profile.library.length > 0') my library
+            div#library.results(show-library library='profile.library')
+            h4(style='text-align: center; margin-bottom: 4vh' ng-show='profile.borrowed.length > 0') my trades
+            div#trades.results(show-borrowed borrowed='profile.borrowed')

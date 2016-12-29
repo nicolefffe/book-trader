@@ -1,0 +1,15 @@
+doctype html
+
+html(lang='en', ng-app='book-app', ng-controller='SearchCtrl as search')
+
+    include /app/shared/templates/header.pug
+
+    include /app/shared/templates/nav.pug
+
+    body(style='padding-top: 70px')
+        div.dialog(dialog-search-results)
+        div.dialog(dialog-add-book)
+        div.dialog(trade-options)
+        main
+            h1.welcome books available for trade
+            div.browse(all-books)
