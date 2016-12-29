@@ -1,6 +1,6 @@
 var fs = require("fs");
 var path = require("path");
-var jade = require('jade');
+var pug = require('pug');
 var bodyParser = require('body-parser');
 
 var FindBook = require(path.join(__dirname,'controllers','server-books.js'))
@@ -24,7 +24,7 @@ module.exports = function(app,passport) {
   app.use(bodyParser.json());
 
   app.set('views','./front_end');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'pug');
 
   app.route('/')
     .get(isLoggedIn, function(req,res) {

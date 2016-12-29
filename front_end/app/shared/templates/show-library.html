@@ -14,7 +14,7 @@
     <br>
     {{ b.google.date }}
     <br><br>
-    <button class='btn btn-default btn-xs' ng-show='b.borrower.length != 1 && b.available' remove-book ng-click='profile.removeBook(b.id)'>
+    <button class='btn btn-default btn-xs' ng-show='b.borrower.length != 1' remove-book ng-click='profile.removeBook(b.id)'>
       Remove from library
     </button>
     <button class='btn btn-default btn-xs' ng-show='b.available' ng-click='profile.changeTrade(b)'>

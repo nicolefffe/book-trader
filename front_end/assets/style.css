@@ -30,10 +30,10 @@ nav {
 }
 
 .book-display {
-    margin-bottom: 6vh;
+    margin-bottom: 4vh;
     font-size: 1.2em;
-    height: 30vh;
-    width: 30vw;
+    flex: 1 50%;
+    padding: 1vh 1vw;
 }
 
 .book-info {
@@ -64,10 +64,10 @@ nav {
 }
 
 .dialog {
-    position: fixed;
-    width: 50vw;
-    top: 20vh;
-    left: 25vw;
+    position: absolute;
+    width: 90vw;
+    top: 10vh;
+    left: 5vw;
     background-color: white;
     z-index: 2;
     outline: 9999px solid rgba(0,0,0,0.5);

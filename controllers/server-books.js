@@ -58,7 +58,7 @@ module.exports = function() {
 
           var books = [];
           var obj = JSON.parse(reply);
-          console.log(obj);
+          // console.log(obj);
 
           if (obj.totalItems === 0) {
             books.push({
